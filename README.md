@@ -19,7 +19,7 @@ Make sure you have Git installed and a recent version of Nodejs and NPM
 ### Installation (Front end only)
 1. Clone the repo
 ```sh
-git clone github.com/devdimer/discord-clone
+git clone https://github.com/devdimer/discord-clone.git
 ``````
 
 2. Install the packages
