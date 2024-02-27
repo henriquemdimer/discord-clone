@@ -1,0 +1,19 @@
+.role {
+    display: flex;
+    flex-direction: column;
+
+    .role__name {
+        font-size: 12px;
+        color: var(--white);
+        opacity: 45%;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .role__users {
+        padding-top: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+}

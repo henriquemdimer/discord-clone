@@ -1,0 +1,12 @@
+#server-list {
+    min-width: 71px;
+    height: 100vh;
+    background-color: var(--quaternary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 0;
+    gap: 12px;
+    overflow-y: auto;
+    scrollbar-width: none;
+}

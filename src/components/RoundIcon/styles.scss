@@ -1,0 +1,136 @@
+.round-icon {
+    min-width: 48px;
+    min-height: 48px;
+    max-width: 48px;
+    max-height: 48px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    transition: var(--transition);
+
+    .round-icon__image {
+        border-radius: 50%;
+        transition: var(--transition);
+    }
+
+    &:hover:not(.round-icon--disable-hover), &.round-icon--active {
+        border-radius: 8px;
+        background-color: var(--discord);
+
+        .round-icon__image {
+            border-radius: 8px;
+        }
+
+        &::before {
+            content: '';
+            height: 60%;
+        }
+    }
+
+    &.round-icon--active::before {
+        content: '';
+        height: 100% !important;
+    }
+
+    &.round-icon--home {
+        background-color: var(--discord);
+    }
+
+    &.round-icon--notification {
+        &::after {
+            content: attr(data-notifications);
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    &.round-icon--unread-messages {
+        &::before {
+            content: '';
+            left: -33%;
+            opacity: 1;
+        }
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background-color: var(--white);
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 5px;
+        opacity: 0;
+        left: -33%;
+        transition: var(--transition);
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        min-width: 16px;
+        min-height: 16px;
+        max-width: 16px;
+        max-height: 16px;
+        background-color: var(--notification);
+        bottom: -2px;
+        right: -2px;
+        border-radius: 50%;
+        border: 3px solid var(--quaternary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bolder;
+        font-size: 13.5px;
+        transform: scale(0.1);
+        opacity: 0;
+        pointer-events: none;
+        transition: var(--transition);
+    }
+
+    &.round-icon--small {
+        min-width: 32px;
+        min-height: 32px;
+        max-width: 32px;
+        max-height: 32px;
+
+        &::after {
+            content: '';
+            min-width: 10px;
+            min-height: 10px;
+            max-width: 10px;
+            max-height: 10px;
+            border: 2px solid var(--quaternary);
+        }
+    }
+
+    &.round-icon--online::after {
+        content: '';
+        background-color: lime !important;
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    &.round-icon--offline::after {
+        content: '';
+        background-color: var(--gray) !important;
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    &.round-icon--idle::after {
+        content: '';
+        background-color: var(--mention-detail) !important;
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    &.round-icon--dnd::after {
+        content: '';
+        transform: scale(1);
+        opacity: 1;
+    }
+}

@@ -1,0 +1,27 @@
+.user {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    cursor: pointer;
+    padding: 5px;
+    transition: var(--fast-transition);
+    border-radius: 3px;
+
+    .user__infos {
+        .user__name {
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--white);
+            opacity: 74%;
+            transition: var(--fast-transition);
+        }
+    }
+
+    &:hover {
+        background-color: var(--quinary);
+
+        .user__infos .user__name {
+            opacity: 100%;
+        }
+    }
+}

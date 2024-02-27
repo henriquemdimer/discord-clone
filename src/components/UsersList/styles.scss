@@ -1,0 +1,8 @@
+#users-list {
+    min-width: 240px;
+    height: calc(100vh - 46px);
+    background-color: var(--secondary);
+    padding: 23px 23px 47px 16px;
+    display: flex;
+    flex-direction: column;
+}

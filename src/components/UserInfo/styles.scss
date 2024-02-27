@@ -1,0 +1,26 @@
+#user-info {
+    min-width: 100%;
+    min-height: 52px;
+    background-color: var(--userinfo);
+    padding: 10px;
+    display: flex;
+
+     #user-info__info {
+        display: flex;
+        align-items: center;
+
+        #user-info__texts {
+            display: flex;
+            flex-direction: column;
+            color: white;
+            margin-left: 8px;
+            font-size: 13px;
+            font-weight: 700;
+
+            #user-info__status {
+                font-weight: 400;
+                opacity: 69%;
+            }
+        }
+    }
+}

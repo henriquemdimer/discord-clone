@@ -1,0 +1,30 @@
+#server-name {
+    min-width: 100%;
+    min-height: 46px;
+    background-color: var(--secondary);
+    padding: 0 15px;
+    // border-top-left-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: var(--fast-transition);
+    border-bottom: 2px solid var(--quaternary);
+
+    #server-name__title {
+        color: var(--white);
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    #server-name__icon {
+        color: white;
+        display: flex;
+        align-items: center;
+        font-weight: bolder;
+    }
+
+    &:hover {
+        background-color: var(--userinfo);
+    }
+}

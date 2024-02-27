@@ -1,0 +1,36 @@
+#channel-info {
+    width: 100%;
+    height: 46px;
+    background-color: var(--primary);
+    padding: 6px 17px;
+    border-bottom: 2px solid var(--quaternary);
+
+    #channel-info__title {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        color: white;
+
+        #channel-info__icon {
+            font-size: 28px;
+            opacity: 30%;
+        }
+
+        #channel-info__name {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .channel-info__separator {
+            width: 1px;
+            height: 24px;
+            background-color: var(--separator);
+        }
+
+        #channel-info__topic {
+            font-size: 15px;
+            opacity: 70%;
+        }
+    }
+}
