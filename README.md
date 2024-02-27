@@ -4,7 +4,7 @@
 </div>
 
 ### About the project
-In this project I will recreate the Discord application in both the Backend and Frontend parts, the main objective of this project is to test my skills and see how long it would take me to develop an application of this level/niche, I intend to make its operation/visual as close as possible. possible from the original Discord
+In this project I will recreate the Discord application in both the Backend and Frontend parts, the main objective of this project is to test my skills and see how long it would take me to develop an application of this level/niche, I intend to make its operation/visual as close as possible from the original Discord
 
 ### Built with
 - ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
