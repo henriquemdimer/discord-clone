@@ -38,7 +38,7 @@ After that, the React server should be running and ready to be accessed, just op
 ## Roadmap
 
 - [ ] Front end
-    - [ ] Basic UI
+    - [x] Basic UI
     - [ ] Loading screen
     - [ ] Profiles
     - [ ] Friends UI
