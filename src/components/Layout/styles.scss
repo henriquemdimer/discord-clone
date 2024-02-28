@@ -9,6 +9,7 @@
     .layout--column {
         display: flex;
         flex-direction: column;
+        position: relative;
     }
 
     .layout__rigth-bar {

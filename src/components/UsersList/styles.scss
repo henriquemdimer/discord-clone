@@ -5,4 +5,7 @@
     padding: 23px 23px 47px 16px;
     display: flex;
     flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+    scrollbar-width: none;
 }
