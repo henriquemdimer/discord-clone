@@ -1,6 +1,7 @@
 import ChannelData from '../ChannelData';
 import ChannelInfo from '../ChannelInfo';
 import ChannelList from '../ChannelList';
+import Input from '../Input';
 import ServerList from '../ServerList';
 import ServerName from '../ServerName';
 import UserInfo from '../UserInfo';
@@ -21,7 +22,10 @@ export default function Layout() {
                     <div className="layout--column layout--full">
                         <ChannelInfo />
                         <div className="layout--flex layout--full">
-                            <ChannelData />
+                            <div className="layout--column layout--full">
+                                <ChannelData />
+                                <Input />
+                            </div>
                             <UsersList />
                         </div>
                     </div>
