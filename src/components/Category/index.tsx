@@ -23,8 +23,8 @@ export default function Category(props: IProps) {
                 </div>
                 {!closed && (
                     <div className="category__channels">
-                        <Channel name="chat-geral"/>
-                        <Channel name="comandos"/>
+                        <Channel name="general"/>
+                        <Channel name="media"/>
                     </div>
                 )}
             </div>

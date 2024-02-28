@@ -5,7 +5,7 @@ export default function ChannelList() {
     return (
         <>
             <div id="channel-list">
-                <Category name="canais de texto" />
+                <Category name="main" />
             </div>
         </>
     )
