@@ -1,0 +1,29 @@
+.message {
+    display: flex;
+    align-items: start;
+    gap: 14px;
+    padding: 4px 16px;
+    transition: var(--fast-transition);
+
+    .message__data {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        color: var(--white);
+        font-size: 14px;
+
+        .message__author {
+            margin-top: 4px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .message__content {
+            opacity: 0.9;
+        }
+    }
+
+    &:hover {
+        background-color: var(--secondary);
+    }
+}

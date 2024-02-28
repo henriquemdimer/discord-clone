@@ -2,4 +2,24 @@
     width: 100%;
     height: calc(100vh - 46px);
     background-color: var(--primary);
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 19px;
+    padding: calc(16px + 16px + 44px) 0;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 14px;
+    }
+
+    &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 10px transparent;
+        border: solid 3px transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        box-shadow: inset 0 0 10px var(--tertiary);
+        border: solid 3px transparent;
+        border-radius: 8px;
+    }
 }
