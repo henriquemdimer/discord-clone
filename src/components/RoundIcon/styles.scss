@@ -107,6 +107,22 @@
         }
     }
 
+    &.round-icon--medium {
+        min-width: 40px;
+        min-height: 40px;
+        max-width: 40px;
+        max-height: 40px;
+
+        &::after {
+            content: '';
+            min-width: 13px;
+            min-height: 13px;
+            max-width: 13px;
+            max-height: 13px;
+            border: 2px solid var(--quaternary);
+        }
+    }
+
     &.round-icon--online::after {
         content: '';
         background-color: lime !important;

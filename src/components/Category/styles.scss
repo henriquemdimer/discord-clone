@@ -7,6 +7,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        cursor: pointer;
 
         .category__name {
             font-size: 13px;
@@ -31,21 +32,22 @@
                     transform: rotate(-90deg);
                 }
             }
-
-            &:hover {
-                opacity: 100%;
-            }
         }
 
         .category__icon {
             color: var(--white);
             opacity: 49%;
             cursor: pointer;
+            margin-right: 10px;
             transition: var(--fast-transition);
 
             &:hover {
                 opacity: 100%;
             }
+        }
+
+        &:hover .category__name {
+            opacity: 100%;
         }
     }
 
@@ -54,5 +56,6 @@
         display: flex;
         flex-direction: column;
         gap: 2px;
+        padding: 0px 8px;
     }
 }
