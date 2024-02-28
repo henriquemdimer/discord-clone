@@ -34,8 +34,8 @@ export default function Input() {
     return (
         <>
             <div id="input__container">
-                <div role="input" onInput={adjustHeight} contentEditable id="input">
-                    {placeholder && <span id="input__placeholder">Text in #chat-geral</span>}
+                <div onInput={adjustHeight} contentEditable id="input">
+                    {placeholder && <span id="input__placeholder">Text in #general</span>}
                 </div>
                 <i id="input__icon"><FiAtSign /></i>
             </div>
