@@ -37,14 +37,14 @@ After that, the React server should be running and ready to be accessed, just op
 
 ## Roadmap
 
-- [ ] Front end
+- [ ] Client
     - [x] Basic UI
     - [ ] Loading screen
     - [ ] Profiles
     - [ ] Friends UI
     - [ ] Account/App config screen
     - [ ] Guild config screen
-- [ ] Back end
+- [ ] Server
     - [ ] Create/Edit/Delete account
     - [ ] Create/Edit/Delete guild
     - [ ] Create/Edit/Delete roles
