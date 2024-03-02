@@ -1,4 +1,5 @@
 import Server from './core/Server';
+import 'dotenv/config';
 
 (async () => {
     const server = new Server();
