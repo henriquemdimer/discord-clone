@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import BaseController, { IBaseController } from '../../core/extends/BaseRoute';
+import BaseController, { IBaseController } from '../../core/extends/BaseController';
 
 export default class MainController extends BaseController implements IBaseController {
     public constructor() {
@@ -8,11 +8,7 @@ export default class MainController extends BaseController implements IBaseContr
 
     public init(router: Router) {
         router.get('/', (req, res) => {
-            res.send('Hello World');
-        });
-
-        router.get('/test', (req, res) => {
-            res.send('Hello world from /test');
+            res.send('All systems operational.');
         });
 
         return router;
