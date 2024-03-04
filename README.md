@@ -46,7 +46,7 @@ After that, the React server should be running and ready to be accessed, just op
     - [ ] Account/App config screen
     - [ ] Guild config screen
 - [ ] Server
-    - [ ] Create/Edit/Delete account
+    - [x] Create/Edit/Delete account
     - [ ] Create/Edit/Delete guild
     - [ ] Create/Edit/Delete roles
     - [ ] Role/Users permissions
