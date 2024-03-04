@@ -1,34 +1,58 @@
-import { Router } from 'express';
-import BaseController, { IBaseController } from '../../core/extends/BaseController';
+import { Request, Response } from 'express';
 import UserService from '../services/user.service';
 import UserCreateBody from '../dtos/userCreate.dto';
 import { plainToClass } from 'class-transformer';
 import { ValidationError } from 'class-validator';
 import User from '../models/User';
+import BaseController from '../../core/extends/BaseController';
+import AuthService from '../services/auth.service';
+import HttpResponses from '../../core/utils/HttpResponses';
 
-export default class UserController extends BaseController implements IBaseController {
-    public constructor(private readonly userService = new UserService) {
-        super('/users');
+export default class UserController extends BaseController {
+    public constructor(
+        private readonly userService = new UserService(),
+        private readonly authService = new AuthService()
+    ) {
+        super();
+
+        this.createUser = this.createUser.bind(this);
+        this.deleteUser = this.deleteUser.bind(this);
     }
 
-    public init(router: Router) {
-        router.post('/', async (req, res) => {
-            try {
-                const body = plainToClass(UserCreateBody, req.body || {});
+    public async createUser(req: Request, res: Response) {
+        try {
+            const body = plainToClass(UserCreateBody, req.body || {});
 
-                if (body.email && await User.findOne({ email: body.email })) {
-                    return res.status(409).send('Conflict');
-                }
+            if (body.email && (await User.findOne({ email: body.email }))) return HttpResponses.Conflict(res);
 
-                const id = await this.userService.create(body);
-                return res.status(201).send({
-                    id
-                });
-            } catch (_) {
-                return res.status(400).send({ errors: this.parseErrors(_ as ValidationError[]) });
+            const id = await this.userService.create(body);
+            const token = this.authService.generateToken(id);
+            return res.status(201).send({
+                token,
+                id
+            });
+        } catch (err) {
+            // Improve this in the future
+            if (Array.isArray(err)) {
+                return res.status(400).send({ errors: this.parseErrors(err as ValidationError[]) });
+            } else {
+                console.log(err);
+                return HttpResponses.InternalServerError(res);
             }
-        });
+        }
+    }
 
-        return router;
+    public async deleteUser(req: Request, res: Response) {
+        if (!res.locals.id) return HttpResponses.Unauthorized(res);
+
+        try {
+            if (!(await this.userService.findUserById(res.locals.id))) return HttpResponses.NotFound(res);
+            await this.userService.deleteUser(res.locals.id);
+
+            return HttpResponses.Ok(res);
+        } catch (err) {
+            console.log('Failed to delete user', err);
+            return HttpResponses.InternalServerError(res);
+        }
     }
 }
