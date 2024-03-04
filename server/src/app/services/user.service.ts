@@ -4,7 +4,7 @@ import User from '../models/User';
 import bcrypt from 'bcryptjs';
 
 export default class UserService {
-    public async create(body: UserCreateBody): Promise<number> {
+    public async create(body: UserCreateBody): Promise<string> {
         await validateOrReject(body);
         const password = await bcrypt.hash(body.password, 10);
 
@@ -17,6 +17,18 @@ export default class UserService {
 
         await user.save();
         return user.id;
+    }
+
+    public async findUserById(userId: string) {
+        if (!userId) throw new Error('Missing user id');
+
+        return await User.findOne({ id: userId });
+    }
+
+    public async deleteUser(userId: string) {
+        if(!userId) throw new Error('Missing user id');
+
+        return await User.deleteOne({ id: userId });
     }
 
     public async generateId(): Promise<string> {
