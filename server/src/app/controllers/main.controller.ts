@@ -1,16 +1,12 @@
-import { Router } from 'express';
-import BaseController, { IBaseController } from '../../core/extends/BaseController';
+import { Request, Response } from 'express';
+import BaseController from '../../core/extends/BaseController';
 
-export default class MainController extends BaseController implements IBaseController {
+export default class MainController extends BaseController {
     public constructor() {
-        super('/');
+        super();
     }
 
-    public init(router: Router) {
-        router.get('/', (req, res) => {
-            res.send('All systems operational.');
-        });
-
-        return router;
+    public checkHealth(req: Request, res: Response) {
+        return res.status(200).send('All systems operational');
     }
 }
