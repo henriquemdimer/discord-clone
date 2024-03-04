@@ -1,8 +1,8 @@
 import Express from 'express';
 import { promises as fs } from 'node:fs';
-import { IBaseController } from './extends/BaseController';
 import Database from './Database';
 import bodyParser from 'body-parser';
+import { IBaseRoute } from './extends/BaseRoute';
 
 export default class Server {
     public app = Express();
@@ -14,15 +14,15 @@ export default class Server {
         this.app.use(bodyParser.json());
     }
 
-    public async initControllers() {
-        const routes = await fs.readdir('src/app/controllers');
+    public async initRoutes() {
+        const routes = await fs.readdir('src/app/routes');
         if (routes.length) {
-            for (const TController of routes) {
-                const Controller = await import(`../app/controllers/${TController}`);
-                const controller: IBaseController = new Controller.default();
+            for (const TRoute of routes) {
+                const Route = await import(`../app/routes/${TRoute}`);
+                const route: IBaseRoute = new Route.default();
 
                 const router = Express.Router();
-                this.app.use(controller.path, controller.init(router));
+                this.app.use(route.path, route.init(router));
             }
         }
     }
@@ -36,7 +36,7 @@ export default class Server {
         // eslint-disable-next-line no-async-promise-executor
         return new Promise(async (resolve) => {
             await this.initDatabase();
-            await this.initControllers();
+            await this.initRoutes();
 
             this.app.listen(this.port, () => {
                 resolve(this.port);
