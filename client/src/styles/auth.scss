@@ -1,0 +1,135 @@
+#auth-container {
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../assets/auth_bg.webp');
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    #auth__layout {
+        width: 700px;
+        min-height: 400px;
+        background-color: var(--primary);
+        border-radius: 5px;
+        padding: 32px;
+        display: flex;
+        gap: 15px;
+
+        .auth__column {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+
+            #auth__text {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+
+                #auth__title {
+                    font-size: 25px;
+                    color: white;
+                }
+
+                #auth__subtitle {
+                    font-size: 15px;
+                    color: var(--gray);
+                }
+            }
+
+            #auth__form {
+                display: flex;
+                flex-direction: column;
+
+                .auth__input-control {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+                    margin-top: 20px;
+
+                    .auth__input-label {
+                        color: var(--gray);
+                        font-size: 12px;
+                        text-transform: uppercase;
+                        font-weight: bold;
+
+                        &::after {
+                            content: ' *';
+                            color: red;
+                            font-size: 16px;
+                        }
+                    }
+                }
+
+                .auth__input {
+                    height: 40px;
+                    border-radius: 3px;
+                    border: none;
+                    outline: none;
+                    background-color: var(--quaternary);
+                    color: var(--white);
+                    padding: 0 12px;
+                }
+            }
+
+            .auth__blue-deco {
+                color: var(--discord);
+                font-size: 13px;
+                font-weight: bold;
+                margin-top: 6px;
+                cursor: pointer;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            #auth__button {
+                height: 42px;
+                background-color: var(--discord);
+                border-radius: 3px;
+                border: none;
+                outline: none;
+                color: var(--white);
+                margin-top: 22px;
+                font-size: 14px;
+                cursor: pointer;
+                transition: var(--transition);
+                font-weight: bolder;
+
+                &:active {
+                    transform: scale(0.95);
+                }
+            }
+
+            #auth__change-method {
+                font-size: 12px;
+                color: var(--white);
+                margin-top: 12px;
+            }
+
+            #auth__disclaimer {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                #auth__disclaimer__text {
+                    color: var(--white);
+                    text-align: center;
+                    font-weight: bold;
+                }
+
+                #auth__repo-link {
+                    margin-top: 15px;
+                    font-size: 14px;
+                }
+            }
+
+            &#auth__column--first {
+                max-width: 390px;
+                min-width: 390px;
+            }
+        }
+    }
+}
