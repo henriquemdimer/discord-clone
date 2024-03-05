@@ -1,6 +1,7 @@
 import '../styles/auth.scss';
 // @ts-ignore
 import Github from '../assets/github.png';
+import { Link } from 'react-router-dom';
 
 export interface IProps {
     method?: 'login' | 'register'
@@ -37,9 +38,9 @@ export default function AuthPage(props: IProps) {
                             {props.method === "register" ? "Criar conta" : "Entrar"}
                         </button>
                         {props.method === "register" ? (
-                            <span id="auth__change-method">Já tem uma conta? <a href="/login" className="auth__blue-deco">Entre nela!</a></span>
+                            <span id="auth__change-method">Já tem uma conta? <Link to={'/login'} className="auth__blue-deco">Entre nela!</Link></span>
                         ) : (
-                            <span id="auth__change-method">Não tem uma conta? <a href="/register" className="auth__blue-deco">Crie uma!</a></span>
+                            <span id="auth__change-method">Não tem uma conta? <Link to={'/register'} className="auth__blue-deco">Crie uma!</Link></span>
                         )}
                     </div>
                     <div className="auth__column">
