@@ -18,7 +18,8 @@ const Schema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    tag: String
 }, { timestamps: true });
 
 export default mongoose.model('User', Schema);
