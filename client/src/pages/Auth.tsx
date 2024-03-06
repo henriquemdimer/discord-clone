@@ -25,7 +25,7 @@ export default function AuthPage(props: IProps) {
                 const errors: any[] = err.response.data.errors;
                 const list = ['username', 'email', 'password'];
 
-                if (errors.length) {
+                if (errors && errors.length) {
                     errors.forEach((error: { field: string }) => {
                         const element = document.getElementById(`auth__${error.field}-error`);
                         element?.classList.add('auth__input-error--active');
