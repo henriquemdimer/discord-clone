@@ -24,9 +24,9 @@ export default class Client extends EventEmitter {
         this.user = new User(this, data);
     }
 
-    public async registerUser(username: string, email: string, password: string): Promise<{ token: string, id: string }> {
+    public async registerAccount(username: string, email: string, password: string): Promise<{ token: string, id: string }> {
         if (!username || !email || !password) throw new Error('Missing some parameter');
-        const res = await this.rest.request('post', '/users', {
+        const res = await this.rest.request('post', '/auth/register', {
             username,
             email,
             password
@@ -36,5 +36,18 @@ export default class Client extends EventEmitter {
             token: res.data.token,
             id: res.data.id
         }
+    }
+
+    public async loginAccount(email: string, password: string) {
+        if (!email || !password) throw new Error('Missing some parameter');
+        const res = await this.rest.request('post', '/auth/login', {
+            password,
+            email
+        });
+
+        return {
+            token: res.data.token,
+            id: res.data.id
+        };
     }
 }
