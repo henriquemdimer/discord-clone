@@ -1,0 +1,20 @@
+#preloader {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--secondary);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.8s;
+
+    &.preloader--active {
+        opacity: 1;
+        pointer-events: all;
+    }
+}
