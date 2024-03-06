@@ -40,7 +40,7 @@ After that, the React server should be running and ready to be accessed, just op
 - [ ] Client
     - [x] Basic UI
     - [x] Login/Register UI
-    - [ ] Loading screen
+    - [x] Loading screen
     - [ ] Profiles
     - [ ] Friends UI
     - [ ] Account/App config screen
