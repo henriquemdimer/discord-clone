@@ -1,4 +1,4 @@
 import Client from "./core/Client";
 
-const client = new Client('https://8080-devdimer-discordclone-ztmj8qjoy6n.ws-us108.gitpod.io');
+const client = new Client(process.env.SERVER_URL as string);
 export default client;
