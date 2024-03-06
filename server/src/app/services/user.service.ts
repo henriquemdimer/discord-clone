@@ -3,15 +3,24 @@ import UserCreateBody from '../dtos/userCreate.dto';
 import User from '../models/User';
 import bcrypt from 'bcryptjs';
 
+export interface IUser {
+    username: string;
+    email: string;
+    tag: string;
+    password: string;
+    id: string;
+}
 export default class UserService {
     public async create(body: UserCreateBody): Promise<string> {
         await validateOrReject(body);
         const password = await bcrypt.hash(body.password, 10);
+        const tag = await this.generateTag(body.username.toLowerCase());
 
         const user = new User({
             username: body.username,
             email: body.email,
             password,
+            tag,
             id: await this.generateId()
         });
 
@@ -19,16 +28,24 @@ export default class UserService {
         return user.id;
     }
 
-    public async findUserById(userId: string) {
+    public async findUserById(userId: string, select?: string): Promise<IUser> {
         if (!userId) throw new Error('Missing user id');
 
-        return await User.findOne({ id: userId });
+        return await User.findOne({ id: userId }).select(select || '');
     }
 
     public async deleteUser(userId: string) {
-        if(!userId) throw new Error('Missing user id');
+        if (!userId) throw new Error('Missing user id');
 
         return await User.deleteOne({ id: userId });
+    }
+
+    public async generateTag(base: string): Promise<string> {
+        if (await User.findOne({ tag: base })) {
+            return await this.generateTag(base + Math.floor(Math.random() * 9999));
+        } else {
+            return base;
+        }
     }
 
     public async generateId(): Promise<string> {
