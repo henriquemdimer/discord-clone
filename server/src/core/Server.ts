@@ -7,9 +7,9 @@ import cors from 'cors';
 
 export default class Server {
     public app = Express();
-    public port: number;
+    public port: string;
 
-    public constructor(port = 8080) {
+    public constructor(port = '8080') {
         this.port = port;
     }
 
