@@ -9,8 +9,6 @@ export default class UserRoute extends BaseRoute implements IBaseRoute {
     }
 
     public init(router: Router) {
-        router.post('/', this.userController.createUser);
-        router.delete('/', AuthMiddleware, this.userController.deleteUser);
         router.get('/@me', AuthMiddleware, this.userController.getMe);
         return router;
     }
