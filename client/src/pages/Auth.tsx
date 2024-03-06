@@ -15,7 +15,6 @@ export default function AuthPage(props: IProps) {
     const [password, setPassword] = useState('');
 
     async function performAuth(e: FormEvent) {
-        console.log(process.env);
         e.preventDefault();
         try {
             const data = await client.registerUser(username, email, password);
