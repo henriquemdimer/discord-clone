@@ -3,6 +3,7 @@ import { promises as fs } from 'node:fs';
 import Database from './Database';
 import bodyParser from 'body-parser';
 import { IBaseRoute } from './extends/BaseRoute';
+import cors from 'cors';
 
 export default class Server {
     public app = Express();
@@ -10,8 +11,6 @@ export default class Server {
 
     public constructor(port = 8080) {
         this.port = port;
-        this.app.use(bodyParser.urlencoded({ extended: false }));
-        this.app.use(bodyParser.json());
     }
 
     public async initRoutes() {
@@ -32,9 +31,16 @@ export default class Server {
         await database.init();
     }
 
+    public initMiddlewares() {
+        this.app.use(bodyParser.urlencoded({ extended: false }));
+        this.app.use(bodyParser.json());
+        this.app.use(cors());
+    }
+
     public init() {
         // eslint-disable-next-line no-async-promise-executor
         return new Promise(async (resolve) => {
+            this.initMiddlewares();
             await this.initDatabase();
             await this.initRoutes();
 
