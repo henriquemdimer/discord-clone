@@ -16,6 +16,7 @@ export default function ChatPage() {
         setLoading(false);
       });
 
+      console.log(process.env);
       await client.init(token);
     })()
   }, []);
