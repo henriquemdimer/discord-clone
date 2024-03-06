@@ -8,7 +8,6 @@ export default function ChatPage() {
 
   useEffect(() => {
     (async () => {
-      console.log(process.env);
       const token = localStorage.getItem('token');
       if (!token) return window.location.replace('/login');
 
@@ -16,7 +15,6 @@ export default function ChatPage() {
         setLoading(false);
       });
 
-      console.log(process.env);
       await client.init(token);
     })()
   }, []);
