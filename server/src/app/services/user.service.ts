@@ -28,10 +28,11 @@ export default class UserService {
         return user.id;
     }
 
-    public async findUserById(userId: string, select?: string): Promise<IUser> {
-        if (!userId) throw new Error('Missing user id');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    public async findUser(query: any, select?: string): Promise<IUser> {
+        if (!query) throw new Error('Missing search query');
 
-        return await User.findOne({ id: userId }).select(select || '');
+        return await User.findOne(query).select(select || '');
     }
 
     public async deleteUser(userId: string) {
