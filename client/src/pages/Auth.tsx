@@ -14,14 +14,14 @@ export default function AuthPage(props: IProps) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    async function performAuth(e: FormEvent) {
+    async function register(e: FormEvent) {
         e.preventDefault();
         try {
-            const data = await client.registerUser(username, email, password);
+            const data = await client.registerAccount(username, email, password);
             localStorage.setItem('token', data.token);
             window.location.replace('/');
         } catch (err: any) {
-            if (err.response) {
+            if (err.response && err.response.status === 400) {
                 const errors: any[] = err.response.data.errors;
                 const list = ['username', 'email', 'password'];
 
@@ -41,7 +41,22 @@ export default function AuthPage(props: IProps) {
                     const element = document.getElementById(`auth__${item}-error`);
                     element?.classList.remove('auth__input-error--active');
                 })
+            } else if (err.response && err.response.status === 500) {
+                console.log('Unknown error', err.response.data);
+            } else if (!err.response) {
+                console.log(err);
             }
+        }
+    }
+
+    async function login(e: FormEvent) {
+        try {
+            e.preventDefault();
+            const data = await client.loginAccount(email, password);
+            localStorage.setItem('token', data.token);
+            window.location.replace('/');
+        } catch (err) {
+            console.log(err);
         }
     }
 
@@ -54,7 +69,7 @@ export default function AuthPage(props: IProps) {
                             <h2 id="auth__title">{props.method === "register" ? "Bem vindo" : "Bem vindo de volta!"}</h2>
                             <h4 id="auth__subtitle">{props.method === "register" ? "Estamos ansiosos para você se juntar a nós!" : "Estamos felizes em ver você novamente"}</h4>
                         </div>
-                        <form onSubmit={performAuth} action="" id="auth__form">
+                        <form onSubmit={(e) => props.method === "register" ? register(e) : login(e)} action="" id="auth__form">
                             {props.method === "register" ? (
                                 <div className="auth__input-control">
                                     <label htmlFor="username" className="auth__input-label">Nome de usuario</label>
