@@ -17,6 +17,7 @@ export default class UserController extends BaseController {
 
         this.createUser = this.createUser.bind(this);
         this.deleteUser = this.deleteUser.bind(this);
+        this.getMe = this.getMe.bind(this);
     }
 
     public async createUser(req: Request, res: Response) {
@@ -52,6 +53,20 @@ export default class UserController extends BaseController {
             return HttpResponses.Ok(res);
         } catch (err) {
             console.log('Failed to delete user', err);
+            return HttpResponses.InternalServerError(res);
+        }
+    }
+
+    public async getMe(req: Request, res: Response) {
+        try {
+            if (!res.locals.id) return HttpResponses.Unauthorized(res);
+
+            const user = await this.userService.findUserById(res.locals.id, '-password');
+            if (!user) return HttpResponses.NotFound(res);
+
+            res.status(200).send(user);
+        } catch (err) {
+            console.log('Failed to get user information', err);
             return HttpResponses.InternalServerError(res);
         }
     }
