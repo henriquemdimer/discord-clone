@@ -47,7 +47,7 @@ After that, the React server should be running and ready to be accessed, just op
     - [ ] Guild config screen
 - [ ] Server
     - [x] Create/Edit/Delete account
-    - [ ] Create/Edit/Delete guild
+    - [x] Create/Edit/Delete guild
     - [ ] Create/Edit/Delete roles
     - [ ] Role/Users permissions
     - [ ] Moderation actions (ban, kick, mute)
