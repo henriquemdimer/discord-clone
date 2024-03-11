@@ -21,6 +21,13 @@ export default class Server {
                 const route: IBaseRoute = new Route.default();
 
                 const router = Express.Router();
+
+                if (route.middlewares) {
+                    route.middlewares.forEach((middleware) => {
+                        router.use(middleware);
+                    });
+                }
+
                 this.app.use(route.path, route.init(router));
             }
         }
