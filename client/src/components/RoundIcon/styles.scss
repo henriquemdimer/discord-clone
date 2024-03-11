@@ -8,13 +8,31 @@
     cursor: pointer;
     position: relative;
     transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.round-icon--system .round-icon__label {
+        font-size: 20px;
+        color: green;
+        transition: var(--transition);
+    }
 
     .round-icon__image {
         border-radius: 50%;
         transition: var(--transition);
     }
 
-    &:hover:not(.round-icon--disable-hover), &.round-icon--active {
+    .round-icon__label {
+        color: var(--white);
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &:hover:not(.round-icon--disable-hover),
+    &.round-icon--active {
         border-radius: 8px;
         background-color: var(--discord);
 
@@ -25,6 +43,11 @@
         &::before {
             content: '';
             height: 60%;
+            opacity: 1;
+        }
+
+        &.round-icon--system .round-icon__label {
+            color: var(--white);
         }
     }
 
