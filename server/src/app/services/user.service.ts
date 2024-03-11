@@ -2,6 +2,7 @@ import { validateOrReject } from 'class-validator';
 import UserCreateBody from '../dtos/userCreate.dto';
 import User from '../models/User';
 import bcrypt from 'bcryptjs';
+import IdGenerator from '../../core/utils/IdGenerator';
 
 export interface IUser {
     username: string;
@@ -21,7 +22,7 @@ export default class UserService {
             email: body.email,
             password,
             tag,
-            id: await this.generateId()
+            id: await IdGenerator.generateId(User)
         });
 
         await user.save();
@@ -29,13 +30,13 @@ export default class UserService {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public async findUser(query: any, select?: string): Promise<IUser> {
+    public async find(query: any, select?: string): Promise<IUser> {
         if (!query) throw new Error('Missing search query');
 
-        return await User.findOne(query).select(select || '');
+        return await User.findOne(query).select((select || '') + ' -_id -__v');
     }
 
-    public async deleteUser(userId: string) {
+    public async delete(userId: string) {
         if (!userId) throw new Error('Missing user id');
 
         return await User.deleteOne({ id: userId });
@@ -46,19 +47,6 @@ export default class UserService {
             return await this.generateTag(base + Math.floor(Math.random() * 9999));
         } else {
             return base;
-        }
-    }
-
-    public async generateId(): Promise<string> {
-        let id = `${Date.now()}`;
-        for (let i = 0; i < 5; i++) {
-            id += Math.floor(Math.random() * 9);
-        }
-
-        if (await User.findOne({ id: id })) {
-            return await this.generateId();
-        } else {
-            return id;
         }
     }
 }
