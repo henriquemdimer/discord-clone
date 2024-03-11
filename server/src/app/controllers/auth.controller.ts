@@ -5,7 +5,6 @@ import HttpResponses from '../../core/utils/HttpResponses';
 import UserService from '../services/user.service';
 import bcrypt from 'bcryptjs';
 import { plainToClass } from 'class-transformer';
-import { ValidationError } from 'class-validator';
 import UserCreateBody from '../dtos/userCreate.dto';
 import User from '../models/User';
 
@@ -36,7 +35,7 @@ export default class AuthController extends BaseController {
         } catch (err) {
             // Improve this in the future
             if (Array.isArray(err)) {
-                return res.status(400).send({ errors: this.parseErrors(err as ValidationError[]) });
+                return res.status(400).send({ errors: this.parseErrors(err) });
             } else {
                 console.log(err);
                 return HttpResponses.InternalServerError(res);
@@ -49,7 +48,7 @@ export default class AuthController extends BaseController {
             const { email, password } = req.body;
             if (!email || !password) return HttpResponses.Unauthorized(res);
 
-            const user = await this.userService.findUser({ email });
+            const user = await this.userService.find({ email });
             if (!user) return HttpResponses.NotFound(res);
 
             const correctPassword = await bcrypt.compare(password, user.password);
@@ -70,8 +69,8 @@ export default class AuthController extends BaseController {
         if (!res.locals.id) return HttpResponses.Unauthorized(res);
 
         try {
-            if (!(await this.userService.findUser({ id: res.locals.id }))) return HttpResponses.NotFound(res);
-            await this.userService.deleteUser(res.locals.id);
+            if (!(await this.userService.find({ id: res.locals.id }))) return HttpResponses.NotFound(res);
+            await this.userService.delete(res.locals.id);
 
             return HttpResponses.Ok(res);
         } catch (err) {
