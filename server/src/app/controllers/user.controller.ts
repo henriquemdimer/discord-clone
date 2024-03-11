@@ -18,7 +18,7 @@ export default class UserController extends BaseController {
         try {
             if (!res.locals.id) return HttpResponses.Unauthorized(res);
 
-            const user = await this.userService.findUser({ id: res.locals.id }, '-password');
+            const user = await this.userService.find({ id: res.locals.id }, '-password');
             if (!user) return HttpResponses.NotFound(res);
 
             res.status(200).send(user);
