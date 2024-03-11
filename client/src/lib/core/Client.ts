@@ -6,6 +6,7 @@ export default class Client extends EventEmitter {
     public token: string;
     public user?: User;
     public rest: RequestManager;
+    public guilds?: any[];
 
     public constructor(url: string) {
         super();
@@ -16,7 +17,13 @@ export default class Client extends EventEmitter {
     public async init(token: string) {
         this.token = token;
         await this.getMyUser()
+        await this.getGuilds();
         this.emit('ready');
+    }
+
+    public async getGuilds() {
+        const { data } = await this.rest.request('get', '/guilds/@me', null, true);
+        this.guilds = data.guilds;
     }
 
     public async getMyUser() {
