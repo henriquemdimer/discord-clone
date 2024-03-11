@@ -5,11 +5,11 @@ import AuthMiddleware from '../../core/middlewares/Auth';
 
 export default class UserRoute extends BaseRoute implements IBaseRoute {
     public constructor(private readonly userController = new UserController()) {
-        super('/users');
+        super('/users', AuthMiddleware);
     }
 
     public init(router: Router) {
-        router.get('/@me', AuthMiddleware, this.userController.getMe);
+        router.get('/@me', this.userController.getMe);
         return router;
     }
 }

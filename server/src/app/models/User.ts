@@ -19,7 +19,11 @@ const Schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    tag: String
+    tag: {
+        type: String,
+        unique: true,
+        required: true
+    }
 }, { timestamps: true });
 
 export default mongoose.model('User', Schema);
