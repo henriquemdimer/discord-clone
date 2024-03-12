@@ -48,10 +48,15 @@ After that, the React server should be running and ready to be accessed, just op
 - [ ] Server
     - [x] Create/Edit/Delete account
     - [x] Create/Edit/Delete guild
-    - [ ] Create/Edit/Delete roles
-    - [ ] Role/Users permissions
-    - [ ] Moderation actions (ban, kick, mute)
     - [ ] Create/Edit/Delete category & channels
-    - [ ] Send/Edit/Delete messages
+    - [ ] Create/Edit/Delete messages
+    - [ ] WebSockets
+        - [ ] Real time message events
+        - [ ] Real time guild events
+        - [ ] Real time channel events
+        - [ ] Real time role events
+    - [ ] Create/Edit/Delete roles
+    - [ ] Moderation actions (ban, kick, mute)
+    - [ ] Role/Users permissions
     - [ ] Add friends
     - [ ] Private messages
