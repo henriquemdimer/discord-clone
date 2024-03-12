@@ -25,7 +25,7 @@ export default function ServerList() {
                 {guilds.map((guild: any, i) => (
                     <RoundIcon active={i === 0} label={guild.name.split(' ').map((word: string, i: number) => i < 2 ? word[0].toUpperCase() : '')} key={i} />
                 ))}
-                <Separator />
+                {guilds.length > 0 && <Separator />}
                 <RoundIcon onClick={() => setModal(true)} label={<FaPlus />} system />
             </div>
         </>
