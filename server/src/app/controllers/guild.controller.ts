@@ -34,10 +34,9 @@ export default class GuildController extends BaseController {
     public async findMyGuilds(req: Request, res: Response) {
         try {
             const guilds = await this.guildService.findMany({ ownerId: res.locals.id });
-            if (!guilds.length) return HttpResponses.NotFound(res);
 
             res.status(200).send({
-                guilds: guilds,
+                guilds: guilds || [],
             });
         } catch (err) {
             console.log('Failed to fecth user guilds', err);
