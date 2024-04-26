@@ -8,7 +8,7 @@ export default function Input() {
 
     useEffect(() => {
         const input = document.getElementById('input');
-        if(!input) return;
+        if (!input) return;
 
         input.addEventListener("focus", () => {
             setPlaceholder(false);
@@ -23,7 +23,7 @@ export default function Input() {
         const input = document.getElementById('input');
         const container = document.getElementById('input__container');
         const channel = document.getElementById('channel-data');
-        if(!input || !container || !channel) return
+        if (!input || !container || !channel) return
         setText(input.innerText);
 
         const bounding = input.getBoundingClientRect();

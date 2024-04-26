@@ -1,6 +1,6 @@
 import { FaAngleRight } from 'react-icons/fa';
 import './styles.scss';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import client from '../../lib';
 import { FaCamera } from "react-icons/fa";
 
@@ -11,6 +11,25 @@ interface IProps {
 
 export default function CreateServerModal(props: IProps) {
     const [level, setLevel] = useState(0);
+    const [name, setName] = useState('');
+    const [invite, setInvite] = useState('');
+
+    async function join(e: FormEvent) {
+        e.preventDefault();
+
+        await client.joinGuild(invite);
+    }
+
+    async function create(e: FormEvent) {
+        e.preventDefault();
+        await client.createGuild(name);
+
+        props.setActive(false);
+        setTimeout(() => {
+            setLevel(0);
+            setName('');
+        }, 500);
+    }
 
     return (
         <>
@@ -38,21 +57,21 @@ export default function CreateServerModal(props: IProps) {
                         </button>
                     </div>
                 </div>
-                <div id="create-server-modal__invite" className="create-server-modal__column">
+                <form onSubmit={join} id="create-server-modal__invite" className="create-server-modal__column">
                     <div className="create-server-modal__text">
                         <span className="create-server-modal__title">Join a server</span>
                         <span className="create-server-modal__subtitle">Type a invite link below to join a server</span>
                     </div>
                     <div className="create-server-modal__input-control">
                         <label htmlFor="" className="create-server-modal__input-label">Invite link</label>
-                        <input type="text" placeholder='https://discord-clone-nine-eta.vercel.app/invites/hJks87I' className="create-server-modal__input" />
+                        <input onChange={(e) => setInvite(e.target.value)} type="text" placeholder='https://discord-clone-nine-eta.vercel.app/invites/hJks87I' className="create-server-modal__input" />
                     </div>
                     <div className="create-server-modal__footer">
-                        <button onClick={() => setLevel(0)} className="create-server-moval__goback">Go back</button>
-                        <button className="create-server-modal__button">Join server</button>
+                        <button type='button' onClick={() => setLevel(0)} className="create-server-moval__goback">Go back</button>
+                        <button type='submit' className="create-server-modal__button">Join server</button>
                     </div>
-                </div>
-                <div id="create-server-modal__create" className="create-server-modal__column">
+                </form>
+                <form onSubmit={create} id="create-server-modal__create" className="create-server-modal__column">
                     <div className="create-server-modal__text">
                         <span className="create-server-modal__title">Create a server</span>
                         <span className="create-server-modal__subtitle">Your server is where you and your friends hang out. Make yours and start talking</span>
@@ -63,13 +82,13 @@ export default function CreateServerModal(props: IProps) {
                     </div>
                     <div className="create-server-modal__input-control">
                         <label htmlFor="" className="create-server-modal__input-label">Server name</label>
-                        <input type="text" placeholder={`${client.user?.username}'s server`} className="create-server-modal__input" />
+                        <input onChange={(e) => setName(e.target.value)} type="text" placeholder={`${client.user?.username}'s server`} className="create-server-modal__input" />
                     </div>
                     <div className="create-server-modal__footer">
-                        <button onClick={() => setLevel(0)} className="create-server-moval__goback">Go back</button>
-                        <button className="create-server-modal__button">Create server</button>
+                        <button type='button' onClick={() => setLevel(0)} className="create-server-moval__goback">Go back</button>
+                        <button type='submit' className="create-server-modal__button">Create server</button>
                     </div>
-                </div>
+                </form>
             </div>
         </>
     )
