@@ -7,7 +7,7 @@ export default class User {
     public tag: string;
     public client: Client;
 
-    public constructor(client: Client, data: any) {
+    public constructor(data: any, client: Client) {
         if (!client) throw Error('Missing client instance');
         this.client = client;
 
