@@ -13,7 +13,6 @@ export default function ChatPage() {
 
       client.on('ready', () => {
         setLoading(false);
-        console.log(client.guilds);
       });
 
       await client.init(token);
