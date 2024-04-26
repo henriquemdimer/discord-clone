@@ -10,7 +10,10 @@ export default class GuildRoute extends BaseRoute implements IBaseRoute {
 
     public init(router: Router) {
         router.post('/', this.guildController.create);
-        router.get('/@me', this.guildController.findMyGuilds);
+        router.post('/:id/join', this.guildController.join);
+        router.get('/:id/members', this.guildController.getMembers);
+        router.post('/:id/channels', this.guildController.createChannel);
+        router.get('/:id/channels', this.guildController.getChannels);
         return router;
     }
 }
