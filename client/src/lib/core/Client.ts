@@ -1,16 +1,17 @@
 import EventEmitter from "events";
+import { Guild } from "./classes/Guild";
 import User from "./classes/User";
 import RequestManager from "./rest/RequestManager";
 
 export default class Client extends EventEmitter {
-    public token: string;
+    public token: string = '';
     public user?: User;
     public rest: RequestManager;
-    public guilds?: any[];
+    public guilds: Guild[] = [];
+    public selectedGuild?: Guild;
 
     public constructor(url: string) {
         super();
-        this.token = '';
         this.rest = new RequestManager(this, url);
     }
 
@@ -22,13 +23,44 @@ export default class Client extends EventEmitter {
     }
 
     public async getGuilds() {
-        const { data } = await this.rest.request('get', '/guilds/@me', null, true);
-        this.guilds = data.guilds;
+        const { data } = await this.rest.request('get', '/users/@me/guilds', null, true);
+
+        if (data.guilds && Array.isArray(data.guilds)) {
+            this.guilds = [];
+            for (const guild of data.guilds) {
+                this.guilds.push(new Guild(guild, this));
+            }
+            console.log(this.guilds);
+            if (!this.selectedGuild) this.selectGuild(this.guilds[0]);
+        }
+
+        this.emit('guildsUpdate');
+    }
+
+    public selectGuild(guild: Guild) {
+        this.selectedGuild = guild;
+        this.emit('selectGuild');
     }
 
     public async getMyUser() {
         const { data } = await this.rest.request('get', '/users/@me', null, true);
-        this.user = new User(this, data);
+        this.user = new User(data, this);
+        this.emit('userUpdate');
+    }
+
+    public async createGuild(name: string) {
+        const res = await this.rest.request('post', '/guilds', {
+            name
+        }, true);
+
+        await this.getGuilds();
+        return 0;
+    }
+
+    public async joinGuild(invite: string) {
+        await this.rest.request('post', `/guilds/${invite}/join`, null, true);
+        await this.getGuilds();
+        return 0;
     }
 
     public async registerAccount(username: string, email: string, password: string): Promise<{ token: string, id: string }> {
