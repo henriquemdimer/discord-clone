@@ -10,6 +10,8 @@ export default class UserRoute extends BaseRoute implements IBaseRoute {
 
     public init(router: Router) {
         router.get('/@me', this.userController.getMe);
+        router.get('/@me/guilds/owned', this.userController.ownedGuilds);
+        router.get('/@me/guilds', this.userController.getGuilds);
         return router;
     }
 }

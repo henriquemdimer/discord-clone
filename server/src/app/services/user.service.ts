@@ -3,6 +3,7 @@ import UserCreateBody from '../dtos/userCreate.dto';
 import User from '../models/User';
 import bcrypt from 'bcryptjs';
 import IdGenerator from '../../core/utils/IdGenerator';
+import GuildMember from '../models/GuildMember';
 
 export interface IUser {
     username: string;
@@ -10,7 +11,9 @@ export interface IUser {
     tag: string;
     password: string;
     id: string;
+    _id: string;
 }
+
 export default class UserService {
     public async create(body: UserCreateBody): Promise<string> {
         await validateOrReject(body);
@@ -29,11 +32,18 @@ export default class UserService {
         return user.id;
     }
 
+    public async getGuilds(userId: string) {
+        if (!userId) throw new Error('Missing user id');
+
+        const members = await GuildMember.find({ id: userId }).populate('guild');
+        return members.map((m) => m.guild);
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public async find(query: any, select?: string): Promise<IUser> {
         if (!query) throw new Error('Missing search query');
 
-        return await User.findOne(query).select((select || '') + ' -_id -__v');
+        return await User.findOne(query).select((select || ''));
     }
 
     public async delete(userId: string) {
