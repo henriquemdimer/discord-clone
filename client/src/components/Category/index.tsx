@@ -2,9 +2,11 @@ import { FaAngleDown, FaPlus } from "react-icons/fa";
 import "./styles.scss";
 import Channel from "../Channel";
 import { useState } from "react";
+import { Channel as LibChannel } from "../../lib/core/classes/Channel";
 
 export interface IProps {
     name: string;
+    channels: LibChannel[];
 }
 
 export default function Category(props: IProps) {
@@ -23,8 +25,9 @@ export default function Category(props: IProps) {
                 </div>
                 {!closed && (
                     <div className="category__channels">
-                        <Channel name="general"/>
-                        <Channel name="media"/>
+                        {props.channels.map((channel, index) => (
+                            <Channel name={channel.name} key={index} />
+                        ))}
                     </div>
                 )}
             </div>
