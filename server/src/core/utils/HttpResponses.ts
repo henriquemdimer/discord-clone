@@ -20,4 +20,8 @@ export default class HttpResponses {
     public static Ok(res: Response) {
         return res.status(200).send('OK');
     }
+
+    public static BadRequest(res: Response) {
+        return res.status(400).send('Bad Request');
+    }
 }
