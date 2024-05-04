@@ -1,0 +1,24 @@
+.button {
+  background-color: var(--discord);
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 15px;
+  font-weight: bolder;
+  cursor: pointer;
+  transition: var(--transition);
+
+  &:active {
+    transform: scale(0.95)
+  }
+
+  &.button__outline {
+    background-color: transparent;
+
+    &:active {
+      text-decoration: underline;
+      transform: scale(1);
+    }
+  }
+}

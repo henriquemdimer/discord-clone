@@ -7,6 +7,7 @@ import { Channel as LibChannel } from "../../lib/core/classes/Channel";
 export interface IProps {
     name: string;
     channels: LibChannel[];
+    createModal: any;
 }
 
 export default function Category(props: IProps) {
@@ -21,7 +22,7 @@ export default function Category(props: IProps) {
                         <div className="category__name">{props.name}</div>
                     </div>
 
-                    <i className="category__icon"><FaPlus /></i>
+                    <i onClick={() => props.createModal(true)} className="category__icon"><FaPlus /></i>
                 </div>
                 {!closed && (
                     <div className="category__channels">
