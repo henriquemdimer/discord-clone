@@ -1,8 +1,9 @@
 import { Channel } from "./Channel";
 import Client from "../Client";
 import { GuildMember } from "./GuildMember";
+import { EventEmitter } from "events";
 
-export class Guild {
+export class Guild extends EventEmitter {
   private client: Client;
   public name: string;
   public id: string;
@@ -10,6 +11,7 @@ export class Guild {
   public channels: Channel[];
 
   public constructor(data: any, client: Client) {
+    super();
     if (!data || !data.id || !data.name || !client) throw new Error('Invalid or missing data');
 
     this.client = client;
@@ -17,6 +19,12 @@ export class Guild {
     this.id = data.id;
     this.members = [];
     this.channels = [];
+  }
+
+  public async loadAll() {
+    await this.getChannels();
+    await this.getMembers();
+    return true;
   }
 
   public async getChannels() {
@@ -28,6 +36,8 @@ export class Guild {
         this.channels.push(new Channel(channel, this.client));
       }
     }
+
+    this.emit('update');
   }
 
   public async getMembers() {
@@ -39,5 +49,19 @@ export class Guild {
         this.members.push(new GuildMember(member, this.client));
       }
     }
+
+    this.emit('update');
+  }
+
+  public async createChannel(name: string) {
+    const { data } = await this.client.rest.request('post', `/guilds/${this.id}/channels`, {
+      name
+    }, true);
+
+    if(data && data.id) {
+      await this.getChannels();
+    }
+
+    return data.id;
   }
 }
