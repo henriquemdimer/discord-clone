@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 export default class Database {
     public connected: boolean = false;
     private connectionTries: number = 0;
+    public connecting: boolean = false;
 
     public init() {
         // eslint-disable-next-line no-async-promise-executor
@@ -14,6 +15,8 @@ export default class Database {
             });
 
             mongoose.connection.on('disconnected', async () => {
+                if (this.connecting == true) return;
+
                 console.log('Database disconnected, reconnecting...');
                 this.connected = false;
                 this.connectionTries = 0;
@@ -25,6 +28,8 @@ export default class Database {
     }
 
     private async connect() {
+        this.connecting = true;
+
         setTimeout(async () => {
             if (!this.connected) {
                 if (this.connectionTries > 2) {

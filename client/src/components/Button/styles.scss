@@ -16,8 +16,11 @@
   &.button__outline {
     background-color: transparent;
 
-    &:active {
+    &:hover {
       text-decoration: underline;
+    }
+
+    &:active {
       transform: scale(1);
     }
   }
