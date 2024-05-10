@@ -37,7 +37,7 @@ export default class Client extends EventEmitter {
         this.emit('guildsUpdate');
     }
 
-    public selectGuild(guild: Guild) {
+    public async selectGuild(guild: Guild) {
         this.selectedGuild = guild;
         this.emit('selectGuild');
     }
