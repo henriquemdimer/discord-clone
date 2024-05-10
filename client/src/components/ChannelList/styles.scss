@@ -16,16 +16,16 @@
     font-weight: bolder;
 }
 
-#channel-list--modal-subtitle {
+.channel-list--modal-subtitle {
     color: var(--white);
     font-size: 11px;
     text-transform: uppercase;
-    margin-top: 30px;
+    margin-top: 10px;
     font-weight: bold;
 }
 
 #channel-list--modal-channel-types {
-    margin-top: 20px;
+    margin-top: 10px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -40,9 +40,23 @@
         align-items: center;
         transition: var(--transition);
         cursor: pointer;
+        border: 1px solid transparent;
+
+        &.channel-type__disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
 
         &:hover {
             background-color: var(--quinary);
+
+            &.channel-type__disabled {
+                background-color: var(--tertiary);
+            }
+        }
+
+        &.channel-type__active {
+            border: 1px solid var(--discord);
         }
 
         &>i {
@@ -54,9 +68,11 @@
 
         &>input {
             margin-right: 15px;
+            float: right;
         }
 
         .channel-type--infos {
+            width: 100%;
             display: flex;
             flex-direction: column;
 
@@ -66,6 +82,7 @@
 
             &>span {
                 font-size: 13px;
+                margin-right: 5px;
                 color: var(--gray);
             }
         }
