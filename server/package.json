@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "cd build && node .",
+    "build": "tsc",
     "dev": "ts-node src/index.ts",
     "fix": "npx eslint . --fix"
   },

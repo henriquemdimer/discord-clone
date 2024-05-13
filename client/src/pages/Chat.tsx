@@ -15,7 +15,11 @@ export default function ChatPage() {
         setLoading(false);
       });
 
-      await client.init(token);
+      try {
+        await client.init(token);
+      } catch (err) {
+        return window.location.replace('/login');
+      }
     })()
   }, []);
 
