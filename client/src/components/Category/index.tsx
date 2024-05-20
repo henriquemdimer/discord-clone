@@ -1,13 +1,16 @@
 import { FaAngleDown, FaPlus } from "react-icons/fa";
 import "./styles.scss";
 import Channel from "../Channel";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Channel as LibChannel } from "../../lib/core/classes/Channel";
+import client from "../../lib";
 
 export interface IProps {
     name: string;
+    id: string;
     channels: LibChannel[];
     createModal: any;
+    selectedChannel?: LibChannel;
 }
 
 export default function Category(props: IProps) {
@@ -22,12 +25,12 @@ export default function Category(props: IProps) {
                         <div className="category__name">{props.name}</div>
                     </div>
 
-                    <i onClick={() => props.createModal(true)} className="category__icon"><FaPlus /></i>
+                    <i onClick={() => props.createModal(props.id)} className="category__icon"><FaPlus /></i>
                 </div>
                 {!closed && (
                     <div className="category__channels">
                         {props.channels.map((channel, index) => (
-                            <Channel name={channel.name} key={index} />
+                            <Channel id={channel.id} selected={props.selectedChannel?.id == channel.id} name={channel.name} key={index} />
                         ))}
                     </div>
                 )}

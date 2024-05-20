@@ -7,8 +7,9 @@
     border-radius: 3px;
     cursor: pointer;
     transition: var(--fast-transition);
+    margin: 0 8px;
 
-    &:hover {
+    &:hover, &.channel--selected {
         background-color: var(--quinary);
 
         .channel__infos .channel__name {
