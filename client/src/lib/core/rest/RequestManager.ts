@@ -20,6 +20,8 @@ export default class RequestManager {
         this.instance = axios.create({
             baseURL: this.baseUrl
         });
+
+        console.log(this.baseUrl, options.url);
     }
 
     public async request(method: METHODS, endpoint: string, body?: any, sendAuth: boolean = false): Promise<AxiosResponse> {
