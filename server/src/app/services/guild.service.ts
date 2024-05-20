@@ -4,6 +4,10 @@ import Guild from '../models/Guild';
 import IdGenerator from '../../core/utils/IdGenerator';
 import UserService from './user.service';
 import GuildMember from '../models/GuildMember';
+import ChannelService from './channel.service';
+import { plainToClass } from 'class-transformer';
+import ChannelCreateBody from '../dtos/channelCreate.dto';
+import Gateway from '../../core/Websocket';
 
 export interface IGuild {
     id: string;
@@ -21,11 +25,23 @@ export default class GuildService {
         if (!body || !userId) throw new Error('Missing body or userId');
         await validateOrReject(body);
 
+        // Evitar dependencia circular (arrumar isso no futuro)
+        const channelService = new ChannelService();
         const guild = await Guild.create({
             id: await IdGenerator.generateId(Guild),
             name: body.name,
             ownerId: userId
         });
+
+        const parentId = await channelService.create(plainToClass(ChannelCreateBody, {
+            name: 'Text',
+            type: 0
+        }), guild.id);
+        await channelService.create(plainToClass(ChannelCreateBody, {
+            name: 'general',
+            type: 1,
+            parentId
+        }), guild.id);
 
         return guild.id;
     }
@@ -46,13 +62,15 @@ export default class GuildService {
             guild: guild._id
         });
 
+        await Gateway.updateSocketGuilds(userId, guildId);
+        Gateway.broadcastEventTo(guildId, 'GUILD_MEMBER_ADD', await this.findMember({ id: member.id }));
         return member.id;
     }
 
     public async getMembers(guildId: string) {
         if (!guildId) throw new Error('Missing guild id');
 
-        return await GuildMember.find({ guildId }).populate('guild').populate('user', '-password -email');
+        return await GuildMember.find({ guildId }).populate('guild').populate('user');
     }
 
     public async userIsMemberFromGuild(userId: string, guildId: string) {
@@ -60,6 +78,10 @@ export default class GuildService {
 
         const member = await GuildMember.findOne({ id: userId, guildId });
         return member ? true : false;
+    }
+
+    public async findMember(query: any, select?: string) {
+        return await GuildMember.findOne(query).select(select || '').populate('guild').populate('user');
     }
 
     public async find(query: any, select?: string): Promise<IGuild> {
