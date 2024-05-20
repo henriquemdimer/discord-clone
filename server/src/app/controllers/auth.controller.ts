@@ -48,7 +48,7 @@ export default class AuthController extends BaseController {
             const { email, password } = req.body;
             if (!email || !password) return HttpResponses.Unauthorized(res);
 
-            const user = await this.userService.find({ email });
+            const user = await this.userService.find({ email }, '+password');
             if (!user) return HttpResponses.NotFound(res);
 
             const correctPassword = await bcrypt.compare(password, user.password);

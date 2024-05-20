@@ -21,7 +21,7 @@ export default class UserController extends BaseController {
         try {
             if (!res.locals.id) return HttpResponses.Unauthorized(res);
 
-            const user = await this.userService.find({ id: res.locals.id }, '-password');
+            const user = await this.userService.find({ id: res.locals.id });
             if (!user) return HttpResponses.Unauthorized(res);
 
             res.status(200).send(user);
@@ -30,6 +30,7 @@ export default class UserController extends BaseController {
             return HttpResponses.InternalServerError(res);
         }
     }
+
 
     public async getGuilds(req: Request, res: Response) {
         try {
