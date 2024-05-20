@@ -12,7 +12,9 @@ export default function ChatPage() {
       if (!token) return window.location.replace('/login');
 
       client.on('ready', () => {
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
       });
 
       try {
