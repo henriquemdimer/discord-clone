@@ -5,12 +5,17 @@ interface IProps extends HTMLAttributes<HTMLButtonElement> {
   label: string;
   type?: "button" | "submit" | "reset";
   sstyle?: "default" | "outline";
+  loading?: boolean;
+  disabled?: boolean;
 }
 
 export default function Button(props: IProps) {
   return (
     <>
-      <button onClick={props.onClick} className={`button button__${props.sstyle || 'default'}`} type={props.type || 'button'}>{props.label}</button>
+      <button disabled={props.loading || props.disabled} onClick={props.onClick} className={`button ${props.disabled ? 'button__disabled' : ''} ${props.loading ? 'button__loading' : ''} button__${props.sstyle || 'default'}`} type={props.type || 'button'}>
+        <span>{props.label}</span>
+        {props.loading && <img src='oval.svg' width={25} height={25} />}
+      </button>
     </>
   )
 }
