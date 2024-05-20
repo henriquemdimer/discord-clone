@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./styles.scss";
 import { FiAtSign } from "react-icons/fi";
+import client from "../../lib";
 
 export default function Input() {
-    const [text, setText] = useState("");
     const [placeholder, setPlaceholder] = useState(true);
+
+    async function sendMessage(content: string) {
+        const channel = client.selectedChannel;
+        if (channel) {
+            await channel.createMessage(content);
+        }
+    }
 
     useEffect(() => {
         const input = document.getElementById('input');
@@ -12,19 +19,27 @@ export default function Input() {
 
         input.addEventListener("focus", () => {
             setPlaceholder(false);
-        })
+        });
 
         input.addEventListener("blur", () => {
             setPlaceholder(true);
+        });
+
+        input.addEventListener('keydown', async (e) => {
+            if (e.key == 'Enter') {
+                e.preventDefault();
+                await sendMessage(input.innerText);
+                input.innerText = '';
+                adjustHeight();
+            }
         })
     }, [])
 
-    function adjustHeight(e: any) {
+    function adjustHeight() {
         const input = document.getElementById('input');
         const container = document.getElementById('input__container');
         const channel = document.getElementById('channel-data');
         if (!input || !container || !channel) return
-        setText(input.innerText);
 
         const bounding = input.getBoundingClientRect();
         container.style.bottom = `${bounding.height - 28}px`
