@@ -13,17 +13,19 @@ const Schema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        select: false
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        select: false
     },
     tag: {
         type: String,
         unique: true,
         required: true
-    }
+    },
 }, { timestamps: true });
 
 export default mongoose.model('User', Schema);
