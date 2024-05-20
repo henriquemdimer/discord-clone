@@ -9,6 +9,7 @@ export class Guild extends EventEmitter {
   public id: string;
   public members: GuildMember[];
   public channels: Channel[];
+  public loaded: boolean = false;
 
   public constructor(data: any, client: Client) {
     super();
@@ -17,13 +18,19 @@ export class Guild extends EventEmitter {
     this.client = client;
     this.name = data.name;
     this.id = data.id;
+    console.log(this.id);
     this.members = [];
     this.channels = [];
   }
 
-  public async loadAll() {
-    await this.getChannels();
-    await this.getMembers();
+  public async load() {
+    try {
+      await this.getChannels();
+      await this.getMembers();
+      this.loaded = true;
+    } catch (_) {
+      console.log(_);
+    }
     return true;
   }
 
@@ -53,14 +60,12 @@ export class Guild extends EventEmitter {
     this.emit('update');
   }
 
-  public async createChannel(name: string) {
+  public async createChannel(name: string, type: number, parent?: string) {
     const { data } = await this.client.rest.request('post', `/guilds/${this.id}/channels`, {
-      name
+      name,
+      type,
+      parentId: parent
     }, true);
-
-    if(data && data.id) {
-      await this.getChannels();
-    }
 
     return data.id;
   }
