@@ -3,6 +3,7 @@ import './styles.scss';
 import { FormEvent, useState } from 'react';
 import client from '../../lib';
 import { FaCamera } from "react-icons/fa";
+import Button from '../Button';
 
 interface IProps {
     active: boolean;
@@ -13,16 +14,20 @@ export default function CreateServerModal(props: IProps) {
     const [level, setLevel] = useState(0);
     const [name, setName] = useState('');
     const [invite, setInvite] = useState('');
+    const [loading, setLoading] = useState(false);
 
     async function join(e: FormEvent) {
         e.preventDefault();
-
+        setLoading(true);
         await client.joinGuild(invite);
+        setLoading(false);
     }
 
     async function create(e: FormEvent) {
         e.preventDefault();
+        setLoading(true);
         await client.createGuild(name);
+        setLoading(false);
 
         props.setActive(false);
         setTimeout(() => {
@@ -68,7 +73,7 @@ export default function CreateServerModal(props: IProps) {
                     </div>
                     <div className="create-server-modal__footer">
                         <button type='button' onClick={() => setLevel(0)} className="create-server-moval__goback">Go back</button>
-                        <button type='submit' className="create-server-modal__button">Join server</button>
+                        <Button loading={loading} type='submit' label='Join server' disabled={!invite.length} />
                     </div>
                 </form>
                 <form onSubmit={create} id="create-server-modal__create" className="create-server-modal__column">
@@ -86,7 +91,7 @@ export default function CreateServerModal(props: IProps) {
                     </div>
                     <div className="create-server-modal__footer">
                         <button type='button' onClick={() => setLevel(0)} className="create-server-moval__goback">Go back</button>
-                        <button type='submit' className="create-server-modal__button">Create server</button>
+                        <Button disabled={!name.length} type='submit' loading={loading} label="Create server" />
                     </div>
                 </form>
             </div>
