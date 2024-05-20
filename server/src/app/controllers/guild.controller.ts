@@ -43,6 +43,7 @@ export default class GuildController extends BaseController {
         try {
             const id = req.params.id;
             if (!id) return HttpResponses.BadRequest(res);
+            if (await this.guildService.userIsMemberFromGuild(res.locals.id, id)) return HttpResponses.Conflict(res);
 
             await this.guildService.join(res.locals.id, id);
             return HttpResponses.Ok(res);
