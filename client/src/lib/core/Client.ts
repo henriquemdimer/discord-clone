@@ -1,7 +1,9 @@
 import EventEmitter from "events";
+import { Channel } from "./classes/Channel";
 import { Guild } from "./classes/Guild";
 import User from "./classes/User";
 import RequestManager from "./rest/RequestManager";
+import GatewayManager from "./ws/GatewayManager";
 
 export default class Client extends EventEmitter {
     public token: string = '';
@@ -9,17 +11,29 @@ export default class Client extends EventEmitter {
     public rest: RequestManager;
     public guilds: Guild[] = [];
     public selectedGuild?: Guild;
+    public selectedChannel?: Channel;
+    public ws: GatewayManager;
 
     public constructor(url: string) {
         super();
-        this.rest = new RequestManager(this, url);
+
+        const secure = process.env.REACT_APP_HTTPS == 'true' ? true : false;
+        const gport = process.env.REACT_APP_GATEWAY_PORT;
+        const sport = process.env.REACT_APP_SERVER_PORT;
+        console.log(url);
+
+        this.rest = new RequestManager(this, { secure, url, port: sport });
+        this.ws = new GatewayManager(this, { secure, url, port: gport });
     }
 
     public async init(token: string) {
         this.token = token;
-        await this.getMyUser()
-        await this.getGuilds();
-        this.emit('ready');
+        this.ws.init();
+        this.ws.on('ready', async () => {
+            await this.getMyUser()
+            await this.getGuilds();
+            this.emit('ready');
+        })
     }
 
     public async getGuilds() {
@@ -30,16 +44,33 @@ export default class Client extends EventEmitter {
             for (const guild of data.guilds) {
                 this.guilds.push(new Guild(guild, this));
             }
-            console.log(this.guilds);
-            if (!this.selectedGuild) this.selectGuild(this.guilds[0]);
+
+            if (!this.selectedGuild) await this.selectGuild(this.guilds[0]);
         }
 
         this.emit('guildsUpdate');
     }
 
-    public async selectGuild(guild: Guild) {
+    public async selectGuild(_guild: Guild) {
+        const guild = this.guilds.find((g) => g.id == _guild.id);
+        if (!guild) return;
+
+        if (!guild.loaded) await guild.load();
         this.selectedGuild = guild;
+
+        const channel = this.selectedGuild.channels.filter((c) => c.type == 1)[0];
+        if (channel) await this.selectChannel(channel.id);
         this.emit('selectGuild');
+    }
+
+    public async selectChannel(channelId: string) {
+        const channel = this.selectedGuild?.channels.find((c) => c.id == channelId);
+        if (channel) {
+            if (channel.type == 0) return;
+            if (!channel.loaded) await channel.load();
+            this.selectedChannel = channel;
+            this.emit('selectChannel');
+        }
     }
 
     public async getMyUser() {
@@ -49,17 +80,15 @@ export default class Client extends EventEmitter {
     }
 
     public async createGuild(name: string) {
-        const res = await this.rest.request('post', '/guilds', {
+        await this.rest.request('post', '/guilds', {
             name
         }, true);
 
-        await this.getGuilds();
         return 0;
     }
 
     public async joinGuild(invite: string) {
         await this.rest.request('post', `/guilds/${invite}/join`, null, true);
-        await this.getGuilds();
         return 0;
     }
 
