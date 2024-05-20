@@ -6,24 +6,26 @@ import "./styles.scss";
 
 export default function UsersList() {
     const [members, setMembers] = useState<GuildMember[]>([]);
+    const [roles, setRoles] = useState<number[]>([1]);
 
     useEffect(() => {
         client.on('selectGuild', async () => {
-            if (client.selectedGuild) {
-                if (client.selectedGuild.members.length) setMembers(client.selectedGuild.members);
-                else {
-                    const id = client.selectedGuild.id;
-                    await client.selectedGuild.getMembers();
-                    if (client.selectedGuild.id === id) setMembers(client.selectedGuild.members);
-                }
-            }
-        })
+            if (client.selectedGuild) setMembers(client.selectedGuild.members);
+        });
+
+        client.on('guildMemberAdd', async () => {
+            setRoles([Math.random() * 9999]);
+            setMembers(client.selectedGuild?.members || []);
+        });
     }, []);
+
 
     return (
         <>
             <div id="users-list">
-                <Role members={members} />
+                {roles.map((r, i) => (
+                    <Role key={i} members={members} />
+                ))}
             </div>
         </>
     )
