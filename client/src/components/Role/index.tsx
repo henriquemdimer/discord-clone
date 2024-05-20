@@ -12,8 +12,8 @@ export default function Role(props: IProps) {
             <div className="role">
                 <div className="role__name">Available - {props.members.length || 0}</div>
                 <div className="role__users">
-                    {props.members.map((member, index) => (
-                        <User key={index} username={member.user.username} />
+                    {props.members.map((member) => (
+                        <User key={member.id} username={member.user.username} />
                     ))}
                 </div>
             </div>

@@ -29,7 +29,7 @@ export default function ServerList() {
                 <RoundIcon isHome />
                 <Separator />
                 {guilds.map((guild: Guild, i) => (
-                    <RoundIcon onClick={() => client.selectGuild(guild)} active={selected?.id == guild.id} label={guild.name.split(' ').map((word: string, i: number) => i < 2 ? word[0].toUpperCase() : '')} key={i} />
+                    <RoundIcon onClick={async () => await client.selectGuild(guild)} active={selected?.id == guild.id} label={guild.name.split(' ').map((word: string, i: number) => i < 2 ? word[0].toUpperCase() : '')} key={i} />
                 ))}
                 {guilds.length > 0 && <Separator />}
                 <RoundIcon onClick={() => setModal(true)} label={<FaPlus />} system />
