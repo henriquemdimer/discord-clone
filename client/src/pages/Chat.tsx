@@ -20,7 +20,7 @@ export default function ChatPage() {
       try {
         await client.init(token);
       } catch (err) {
-        return window.location.replace('/login');
+        //return window.location.replace('/login');
       }
     })()
   }, []);
