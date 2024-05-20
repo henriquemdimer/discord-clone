@@ -4,9 +4,11 @@
     background-color: var(--primary);
     display: flex;
     flex-direction: column-reverse;
-    gap: 19px;
+    gap: 7px;
     padding: calc(16px + 16px + 44px) 0;
     overflow-y: auto;
+    overflow-x: hidden;
+    max-width: calc(100vw - 71px - 240px - 240px);
 
     &::-webkit-scrollbar {
         width: 14px;
