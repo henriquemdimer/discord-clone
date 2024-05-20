@@ -4,6 +4,8 @@
     gap: 14px;
     padding: 4px 16px;
     transition: var(--fast-transition);
+    margin-top: 5px;
+    width: 100%;
 
     .message__data {
         display: flex;
@@ -11,6 +13,8 @@
         gap: 5px;
         color: var(--white);
         font-size: 14px;
+        width: 100%;
+        max-width: 90%;
 
         .message__author {
             margin-top: 4px;
@@ -19,7 +23,10 @@
         }
 
         .message__content {
+            flex: 1 1 10%;
             opacity: 0.9;
+            max-width: 100%;
+            word-wrap: break-word;
         }
     }
 
