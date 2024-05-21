@@ -26,7 +26,7 @@ export default class GatewayManager extends EventEmitter {
   }
 
   public init() {
-    this.ws = new WebSocket(this.options.secure ? 'wss://' : 'ws://' + this.options.url + `:${this.options.port || 8081}`);
+    this.ws = new WebSocket((this.options.secure ? 'wss://' : 'ws://') + this.options.url + `:${this.options.port || 8081}`);
     this.ws.onmessage = (msg) => this.onMessage(msg);
   }
 
