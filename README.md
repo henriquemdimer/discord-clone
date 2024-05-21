@@ -1,10 +1,5 @@
-<div align="center">
-    <h3>Timestamp</h3>
-    <p>The development of this project began on 02/26/2024</p>
-</div>
-
-### About the project
-In this project I will recreate the Discord application in both the Backend and Frontend parts, the main objective of this project is to test my skills and see how long it would take me to develop an application of this level/niche, I intend to make its operation/visual as close as possible from the original Discord
+### Sobre o projeto
+Neste projeto irei recriar a aplicação Discord tanto na parte Backend quanto Frontend, o objetivo principal deste projeto é testar minhas habilidades e ver quanto tempo levaria para desenvolver uma aplicação deste nível/nicho, pretendo fazer seu funcionamento/visual o mais próximo possível do Discord original
 
 ### Built with
 - ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
@@ -13,50 +8,44 @@ In this project I will recreate the Discord application in both the Backend and 
 - ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 - ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 
-### Run in your PC (Front end only)
-Make sure you have Git installed and a recent version of Nodejs and NPM
+### Rodando na sua máquina
+Certifique-se de ter Git, Docker e Docker Compose instalados e uma versão recente do Nodejs e NPM
 
-### Installation (Front end only)
-1. Clone the repo
+### Instalação
+1. Clone o repositório
 ```sh
 git clone https://github.com/devdimer/discord-clone.git
-``````
-
-2. Install the packages
-```sh
-cd discord-clone
-npm install
-``````
-
-3. Start the development server
-```sh
-npm start
 ```
 
-After that, the React server should be running and ready to be accessed, just open the browser (if it hasn't already opened automatically) and enter the url http://localhost:3000
+2. Inicie os serviços do docker-compose
+```sh
+docker-compose up
+```
+
+Após isso o app deverá estar rodando e pronto para ser acessado, basta abrir o navegador e digitar a url http://localhost:3000
 
 ## Roadmap
 
 - [ ] Client
-    - [x] Basic UI
-    - [x] Login/Register UI
-    - [x] Loading screen
-    - [ ] Profiles
-    - [ ] Friends UI
-    - [ ] Account/App config screen
-    - [ ] Guild config screen
+    - [x] UI Básica
+    - [x] UI de registro/login
+    - [x] Tela de carregamento
+    - [ ] Perifs
+    - [ ] UI de amigos
+    - [ ] Tela de configuração da conta/app
+    - [ ] Configurações da guild (servidor)
 - [ ] Server
-    - [x] Create/Edit/Delete account
-    - [x] Create/Edit/Delete guild
-    - [ ] Create/Edit/Delete category & channels
-    - [ ] Create/Edit/Delete messages
+    - [x] Criar/Editar/Deletar conta
+    - [x] Criar/Editar/Deletar guilda (servidor)
+    - [x] Criar/Editar/Deletar categorias e canais
+    - [ ] Criar/Editar/Deletar mensagens
     - [ ] WebSockets
-        - [ ] Real time message events
-        - [ ] Real time guild events
-        - [ ] Real time channel events
-        - [ ] Real time role events
-    - [ ] Create/Edit/Delete roles
-    - [ ] Moderation actions (ban, kick, mute)
-    - [ ] Role/Users permissions
-    - [ ] Add friends
-    - [ ] Private messages
+        - [x] Evento de mensagens em tempo real
+        - [ ] Evento de guildas em tempo real
+        - [x] Evento de canais em tempo real
+        - [ ] Evento de cargos em tempo real
+    - [ ] Criar/Editar/Deletar cargos
+    - [ ] Ações de moderação (banimento, expulsão, mute)
+    - [ ] Permissões de cargos e usuarios
+    - [ ] Adicionar amigos
+    - [ ] Mensagens privadas
