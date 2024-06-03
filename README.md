@@ -30,7 +30,7 @@ Após isso o app deverá estar rodando e pronto para ser acessado, basta abrir o
     - [x] UI Básica
     - [x] UI de registro/login
     - [x] Tela de carregamento
-    - [ ] Perifs
+    - [ ] Perfis
     - [ ] UI de amigos
     - [ ] Tela de configuração da conta/app
     - [ ] Configurações da guild (servidor)
