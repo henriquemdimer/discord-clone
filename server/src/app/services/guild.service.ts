@@ -63,7 +63,7 @@ export default class GuildService {
         });
 
         await Gateway.updateSocketGuilds(userId, guildId);
-        Gateway.broadcastEventTo(guildId, 'GUILD_MEMBER_ADD', await this.findMember({ id: member.id }));
+        Gateway.broadcastEventTo(guildId, 'GUILD_MEMBER_ADD', await this.findMember({ id: member.id, guildId }));
         return member.id;
     }
 
