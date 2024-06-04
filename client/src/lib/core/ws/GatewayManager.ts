@@ -50,7 +50,6 @@ export default class GatewayManager extends EventEmitter {
 
   private onEvent(payload: any) {
     const { op, t, data } = payload;
-    console.log(t);
     if (op != 2) return;
 
     switch (t) {
