@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import { IBaseRoute } from './extends/BaseRoute';
 import cors from 'cors';
 import Gateway from './Websocket';
+import path from 'path';
 
 export default class Server {
     public app = Express();
@@ -15,7 +16,7 @@ export default class Server {
     }
 
     public async initRoutes() {
-        const routes = await fs.readdir('src/app/routes');
+        const routes = await fs.readdir(path.join(__dirname, '../app/routes'));
         if (routes.length) {
             for (const TRoute of routes) {
                 const Route = await import(`../app/routes/${TRoute}`);
