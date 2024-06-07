@@ -17,13 +17,12 @@ export default class Client extends EventEmitter {
     public constructor(url: string) {
         super();
 
-        const secure = process.env.REACT_APP_HTTPS == 'true' ? true : false;
-        const gport = process.env.REACT_APP_GATEWAY_PORT;
-        const sport = process.env.REACT_APP_SERVER_PORT;
-        console.log(url);
+        const secure = process.env.REACT_APP_HTTPS === 'true' ? true : false;
+        const gurl = process.env.REACT_APP_GATEWAY_URL;
 
-        this.rest = new RequestManager(this, { secure, url, port: sport });
-        this.ws = new GatewayManager(this, { secure, url, port: gport });
+        if(!gurl) throw new Error('Missing gateway url');
+        this.rest = new RequestManager(this, { secure, url });
+        this.ws = new GatewayManager(this, { secure, url: gurl });
     }
 
     public async init(token: string) {
