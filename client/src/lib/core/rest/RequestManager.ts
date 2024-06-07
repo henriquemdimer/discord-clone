@@ -5,7 +5,6 @@ export type METHODS = 'get' | 'post' | 'patch' | 'delete';
 
 export interface RequestManagerOptions {
     url: string;
-    port?: string;
     secure?: boolean;
 }
 
@@ -16,12 +15,10 @@ export default class RequestManager {
 
     public constructor(client: Client, options: RequestManagerOptions) {
         this.client = client;
-        this.baseUrl = (options.secure ? 'https://' : 'http://') + options.url + `:${options.port || 8080}`;
+        this.baseUrl = (options.secure ? 'https://' : 'http://') + options.url;
         this.instance = axios.create({
             baseURL: this.baseUrl
         });
-
-        console.log(this.baseUrl, options.url);
     }
 
     public async request(method: METHODS, endpoint: string, body?: any, sendAuth: boolean = false): Promise<AxiosResponse> {
