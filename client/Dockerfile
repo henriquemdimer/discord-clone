@@ -1,4 +1,8 @@
-FROM node:22
+FROM node:22 as builder
+
+ARG REACT_APP_SERVER_URL
+ARG REACT_APP_GATEWAY_URL
+ARG REACT_APP_HTTPS
 
 RUN mkdir /site
 COPY package*.json /site
@@ -6,6 +10,11 @@ WORKDIR /site
 RUN npm install
 COPY . .
 RUN npm run build
-RUN npm install serve
 
-CMD npm run serve
+FROM nginx:stable
+
+COPY --from=builder /site/build /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80/tcp
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
