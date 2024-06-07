@@ -7,7 +7,6 @@ import Client from "../Client";
 
 export interface GatewayManagerOptions {
   url: string;
-  port?: string;
   secure?: boolean;
 }
 
@@ -26,7 +25,7 @@ export default class GatewayManager extends EventEmitter {
   }
 
   public init() {
-    this.ws = new WebSocket((this.options.secure ? 'wss://' : 'ws://') + this.options.url + `:${this.options.port || 8081}`);
+    this.ws = new WebSocket((this.options.secure ? 'wss://' : 'ws://') + this.options.url);
     this.ws.onmessage = (msg) => this.onMessage(msg);
   }
 
