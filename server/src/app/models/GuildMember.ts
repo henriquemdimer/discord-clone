@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const Schema = new mongoose.Schema({
   id: {
@@ -7,7 +7,8 @@ const Schema = new mongoose.Schema({
   },
   user: {
     type: mongoose.SchemaTypes.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    required: true
   },
   guildId: {
     required: true,
@@ -16,6 +17,11 @@ const Schema = new mongoose.Schema({
   guild: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: 'Guild'
+  },
+  status: {
+    type: String,
+    required: false,
+    default: 'offline'
   }
 }, { timestamps: true });
 
