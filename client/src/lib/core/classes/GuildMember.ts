@@ -7,6 +7,7 @@ export class GuildMember {
   public user: User;
   public guildId: string;
   public guild: Guild;
+  public status: 'online' | 'offline' | 'dnd' | 'idle';
   private client: Client;
 
   public constructor(data: any, client: Client) {
@@ -15,6 +16,7 @@ export class GuildMember {
     this.id = data.id;
     this.user = new User(data.user, client);
     this.guildId = data.guildId;
+    this.status = data.status || 'offline';
     this.guild = new Guild(data.guild, client);
     this.client = client;
   }
