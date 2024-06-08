@@ -1,13 +1,11 @@
-import { validateOrReject } from "class-validator";
-import MessageCreateBody from "../dtos/messageCreate.dto";
-import Message from "../models/Message";
-import IdGenerator from "../../core/utils/IdGenerator";
-import User from "../models/User";
-import Channel from "../models/Channel";
-import Guild from "../models/Guild";
-import GuildService from "./guild.service";
-import mongoose from "mongoose";
-import Gateway from "../../core/Websocket";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { validateOrReject } from 'class-validator';
+import MessageCreateBody from '../dtos/messageCreate.dto';
+import Message from '../models/Message';
+import IdGenerator from '../../core/utils/IdGenerator';
+import GuildService from './guild.service';
+import mongoose from 'mongoose';
+import Gateway from '../../core/Websocket';
 
 export default class MessageService {
   public constructor(private readonly guildService = new GuildService()) { }

@@ -1,15 +1,14 @@
-import { Request, Response } from "express";
-import BaseController from "../../core/extends/BaseController";
-import ChannelService from "../services/channel.service";
-import HttpResponses from "../../core/utils/HttpResponses";
-import { plainToClass } from "class-transformer";
-import MessageCreateBody from "../dtos/messageCreate.dto";
-import MessageService from "../services/message.service";
-import User from "../models/User";
-import Channel from "../models/Channel";
-import Guild from "../models/Guild";
-import GuildService from "../services/guild.service";
-import GuildMember from "../models/GuildMember";
+import { Request, Response } from 'express';
+import BaseController from '../../core/extends/BaseController';
+import HttpResponses from '../../core/utils/HttpResponses';
+import { plainToClass } from 'class-transformer';
+import MessageCreateBody from '../dtos/messageCreate.dto';
+import MessageService from '../services/message.service';
+import User from '../models/User';
+import Channel from '../models/Channel';
+import Guild from '../models/Guild';
+import GuildService from '../services/guild.service';
+import GuildMember from '../models/GuildMember';
 
 export default class ChannelController extends BaseController {
   public constructor(private readonly messageService = new MessageService(), private readonly guildService = new GuildService()) {
@@ -62,7 +61,8 @@ export default class ChannelController extends BaseController {
         messages: msgs
       });
     } catch (err) {
-
+      console.log('Failed to get messages: ', err);
+      return HttpResponses.InternalServerError(res);
     }
   }
 }

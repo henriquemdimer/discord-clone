@@ -9,11 +9,11 @@ export interface IBaseRoute {
 }
 
 export default class BaseRoute {
-    public path: string;
-    public middlewares?: any[];
+  public path: string;
+  public middlewares?: any[];
 
-    public constructor(path: string, ...middlewares: any[]) {
-        this.path = path;
-        this.middlewares = middlewares;
-    }
+  public constructor(path: string, ...middlewares: any[]) {
+    this.path = path;
+    this.middlewares = middlewares;
+  }
 }

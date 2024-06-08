@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { validateOrReject } from 'class-validator';
 import GuildCreateBody from '../dtos/guildCreate.dto';
 import Guild from '../models/Guild';
@@ -104,7 +105,6 @@ export default class GuildService {
     return await Guild.findOne(query).select(select || '');
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async findMany(query: any, select?: string): Promise<IGuild[]> {
     if (!query) throw new Error('Missing query search');
 

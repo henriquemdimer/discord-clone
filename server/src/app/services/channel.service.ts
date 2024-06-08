@@ -1,8 +1,9 @@
-import { validateOrReject } from "class-validator";
-import IdGenerator from "../../core/utils/IdGenerator";
-import ChannelCreateBody from "../dtos/channelCreate.dto";
-import Channel from "../models/Channel";
-import GuildService from "./guild.service";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { validateOrReject } from 'class-validator';
+import IdGenerator from '../../core/utils/IdGenerator';
+import ChannelCreateBody from '../dtos/channelCreate.dto';
+import Channel from '../models/Channel';
+import GuildService from './guild.service';
 import Gateway from '../../core/Websocket';
 
 /*
@@ -22,7 +23,7 @@ export default class ChannelService {
 
     const guild = await this.guildService.find({ id: guildId });
     if (!guild) throw new Error('Guild not found');
-    if (!CHANNEL_TYPES.includes(body.type)) throw new Error("Invalid channel type");
+    if (!CHANNEL_TYPES.includes(body.type)) throw new Error('Invalid channel type');
 
     if (body.parentId) {
       const parent = await Channel.find({ id: body.parentId });

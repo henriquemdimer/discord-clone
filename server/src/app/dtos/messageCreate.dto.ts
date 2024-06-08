@@ -1,4 +1,4 @@
-import { Length } from "class-validator";
+import { Length } from 'class-validator';
 
 export default class MessageCreateBody {
   @Length(1, 2000)
