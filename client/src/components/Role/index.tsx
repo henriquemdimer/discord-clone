@@ -13,7 +13,7 @@ export default function Role(props: IProps) {
                 <div className="role__name">Available - {props.members.length || 0}</div>
                 <div className="role__users">
                     {props.members.map((member) => (
-                        <User key={member.id} username={member.user.username} />
+                        <User key={member.id} username={member.user.username} status={member.status} />
                     ))}
                 </div>
             </div>
