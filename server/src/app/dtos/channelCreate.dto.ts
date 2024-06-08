@@ -1,4 +1,4 @@
-import { IsNotEmpty, Length, IsNumber, IsOptional } from "class-validator";
+import { IsNotEmpty, Length, IsNumber, IsOptional } from 'class-validator';
 
 export default class ChannelCreateBody {
 

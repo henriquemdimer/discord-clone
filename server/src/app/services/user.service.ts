@@ -15,48 +15,48 @@ export interface IUser {
 }
 
 export default class UserService {
-    public async create(body: UserCreateBody): Promise<string> {
-        await validateOrReject(body);
-        const password = await bcrypt.hash(body.password, 10);
-        const tag = await this.generateTag(body.username.toLowerCase());
+  public async create(body: UserCreateBody): Promise<string> {
+    await validateOrReject(body);
+    const password = await bcrypt.hash(body.password, 10);
+    const tag = await this.generateTag(body.username.toLowerCase());
 
-        const user = new User({
-            username: body.username,
-            email: body.email,
-            password,
-            tag,
-            id: await IdGenerator.generateId(User)
-        });
+    const user = new User({
+      username: body.username,
+      email: body.email,
+      password,
+      tag,
+      id: await IdGenerator.generateId(User)
+    });
 
-        await user.save();
-        return user.id;
+    await user.save();
+    return user.id;
+  }
+
+  public async getGuilds(userId: string) {
+    if (!userId) throw new Error('Missing user id');
+
+    const members = await GuildMember.find({ id: userId }).populate('guild');
+    return members.map((m) => m.guild);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public async find(query: any, select?: string): Promise<IUser> {
+    if (!query) throw new Error('Missing search query');
+
+    return await User.findOne(query).select((select || ''));
+  }
+
+  public async delete(userId: string) {
+    if (!userId) throw new Error('Missing user id');
+
+    return await User.deleteOne({ id: userId });
+  }
+
+  public async generateTag(base: string): Promise<string> {
+    if (await User.findOne({ tag: base })) {
+      return await this.generateTag(base + Math.floor(Math.random() * 9999));
+    } else {
+      return base;
     }
-
-    public async getGuilds(userId: string) {
-        if (!userId) throw new Error('Missing user id');
-
-        const members = await GuildMember.find({ id: userId }).populate('guild');
-        return members.map((m) => m.guild);
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public async find(query: any, select?: string): Promise<IUser> {
-        if (!query) throw new Error('Missing search query');
-
-        return await User.findOne(query).select((select || ''));
-    }
-
-    public async delete(userId: string) {
-        if (!userId) throw new Error('Missing user id');
-
-        return await User.deleteOne({ id: userId });
-    }
-
-    public async generateTag(base: string): Promise<string> {
-        if (await User.findOne({ tag: base })) {
-            return await this.generateTag(base + Math.floor(Math.random() * 9999));
-        } else {
-            return base;
-        }
-    }
+  }
 }
