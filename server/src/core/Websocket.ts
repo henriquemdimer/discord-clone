@@ -124,8 +124,8 @@ class Gateway {
     socket.send(JSON.stringify({ op, t, data }));
   }
 
-  public findSocket(sessionId: string) {
-    const socket = this.sockets.find((c) => c.sessionId == sessionId);
+  public findSocket(userId: string) {
+    return this.sockets.find((c) => c.userId == userId);
   }
 
   public disconnect(sessionId: string, socket: WebSocket) {
