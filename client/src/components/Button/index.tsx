@@ -14,7 +14,7 @@ export default function Button(props: IProps) {
     <>
       <button disabled={props.loading || props.disabled} onClick={props.onClick} className={`button ${props.disabled ? 'button__disabled' : ''} ${props.loading ? 'button__loading' : ''} button__${props.sstyle || 'default'}`} type={props.type || 'button'}>
         <span>{props.label}</span>
-        {props.loading && <img src='oval.svg' width={25} height={25} />}
+        {props.loading && <img src='oval.svg' alt='loader' width={25} height={25} />}
       </button>
     </>
   )
