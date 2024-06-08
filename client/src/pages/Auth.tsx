@@ -1,9 +1,8 @@
 import '../styles/auth.scss';
-// @ts-ignore
-import Github from '../assets/github.png';
 import { Link } from 'react-router-dom';
 import client from '../lib/index';
 import { FormEvent, useState } from 'react';
+import Button from '../components/Button';
 
 export interface IProps {
     method?: 'login' | 'register'
@@ -13,9 +12,11 @@ export default function AuthPage(props: IProps) {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
 
     async function register(e: FormEvent) {
         e.preventDefault();
+        setLoading(true);
         try {
             const data = await client.registerAccount(username, email, password);
             localStorage.setItem('token', data.token);
@@ -46,17 +47,22 @@ export default function AuthPage(props: IProps) {
             } else if (!err.response) {
                 console.log(err);
             }
+        } finally {
+            setLoading(false);
         }
     }
 
     async function login(e: FormEvent) {
         try {
             e.preventDefault();
+            setLoading(true);
             const data = await client.loginAccount(email, password);
             localStorage.setItem('token', data.token);
             window.location.replace('/');
         } catch (err) {
             console.log(err);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -89,9 +95,7 @@ export default function AuthPage(props: IProps) {
                             </div>
 
                             {props.method === "register" ? "" : <span className="auth__blue-deco">Esqueceu sua senha?</span>}
-                            <button type='submit' id="auth__button">
-                                {props.method === "register" ? "Criar conta" : "Entrar"}
-                            </button>
+                            <Button loading={loading} type='submit' label={props.method === "register" ? "Criar conta" : "Entrar"} />
                         </form>
                         {props.method === "register" ? (
                             <span id="auth__change-method">Já tem uma conta? <Link to={'/login'} className="auth__blue-deco">Entre nela!</Link></span>
@@ -101,7 +105,7 @@ export default function AuthPage(props: IProps) {
                     </div>
                     <div className="auth__column">
                         <div id="auth__disclaimer">
-                            <img src={Github} width={176} height={176} alt="" />
+                            <img src='github.png' width={176} height={176} alt="" />
                             <span id="auth__disclaimer__text">Esse é um projeto feito por um fã do Discord!</span>
                             <a target='_blank' rel="noreferrer" href='https://github.com/devdimer/discord-clone' id="auth__repo-link" className="auth__blue-deco">Repositorio no Github</a>
                         </div>
