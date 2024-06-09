@@ -27,10 +27,10 @@ export default function ChannelData() {
                         } else break;
                     }
 
-                    chunks.push(msgs);
+                    chunks.push(msgs.reverse());
                 }
 
-                setMessageChunks(chunks);
+                setMessageChunks(chunks.reverse());
             }
         }
     }, []);
@@ -38,8 +38,10 @@ export default function ChannelData() {
     return (
         <>
             <div id="channel-data">
-                {messageChunks.reverse().map((chunk) => (
-                    <Message key={chunk[0].id} username={chunk[0].author.user.username} content={chunk[0].content} attached={chunk} />
+                {messageChunks.map((chunk) => (
+                    chunk.map((msg: LibMessage, i: number) => (
+                        <Message author={i == chunk.length - 1} key={msg.id} username={msg.author.user.username} content={msg.content} />
+                    ))
                 ))}
             </div>
         </>
