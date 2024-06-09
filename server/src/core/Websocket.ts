@@ -6,7 +6,7 @@ import User from '../app/models/User';
 import 'dotenv/config';
 import UserService from '../app/services/user.service';
 
-export type EVENT_TYPES = 'READY' | 'MESSAGE_CREATE' | 'GUILD_CREATE' | 'CHANNEL_CREATE' | 'GUILD_MEMBER_ADD';
+export type EVENT_TYPES = 'READY' | 'MESSAGE_CREATE' | 'MESSAGE_DELETE' | 'GUILD_CREATE' | 'CHANNEL_CREATE' | 'GUILD_MEMBER_ADD';
 
 class Gateway {
   public server: WebSocketServer;
