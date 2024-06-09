@@ -3,13 +3,18 @@ import client from "../../lib";
 import LibMessage from "../../lib/core/classes/Message";
 import Message from "../Message";
 import "./styles.scss";
+import Modal from "../Modal";
 
 export default function ChannelData() {
     const [messageChunks, setMessageChunks] = useState<any[]>([]);
+    const [deleteModal, setDeleteModal] = useState(false)
+    const [messageToDelete, setMessageToDelete] = useState<LibMessage>();
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         client.on('selectChannel', parseMessages);
         client.on('messageCreate', parseMessages);
+        client.on('messageDelete', parseMessages);
 
         function parseMessages() {
             const channel = client.selectedChannel;
@@ -34,13 +39,38 @@ export default function ChannelData() {
             }
         }
     }, []);
+    
+    function openDeleteMessageModal(msg: LibMessage) {
+        setMessageToDelete(msg);
+        setDeleteModal(true);
+    }
+
+    async function deleteMessage() {
+        if(messageToDelete) {
+            try {
+                await messageToDelete.delete()
+            } catch(_) {
+                console.log(_);
+            } finally {
+                setDeleteModal(false);
+            }
+        }
+    }
 
     return (
         <>
+            <Modal onSuccess={deleteMessage} loading={loading} setLoading={setLoading} successButtonStyle='danger' successButtonLabel="Delete" active={deleteModal} onClose={() => setDeleteModal(false)}>
+                <h3>Delete message</h3>
+                <br />
+                <span>Are you sure you want to delete this message?</span>
+                <div id="modal__message__content">
+                    {messageToDelete && <Message self={messageToDelete} author={true} />}
+                </div>
+            </Modal>
             <div id="channel-data">
                 {messageChunks.map((chunk) => (
                     chunk.map((msg: LibMessage, i: number) => (
-                        <Message author={i == chunk.length - 1} key={msg.id} username={msg.author.user.username} content={msg.content} />
+                        <Message onDelete={openDeleteMessageModal} author={i == chunk.length - 1} key={msg.id} self={msg} />
                     ))
                 ))}
             </div>

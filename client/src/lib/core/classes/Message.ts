@@ -7,6 +7,7 @@ export default class Message {
   public author: GuildMember;
   public channelId: string;
   public guildId: string;
+  public client: Client;
 
   public constructor(data: any, client: Client) {
     if (!data || !data.id || !data.content || !data.content || !data.channelId || !data.guildId || !client) throw new Error('Invalid data');
@@ -16,5 +17,10 @@ export default class Message {
     this.author = new GuildMember(data.author, client);
     this.channelId = data.channelId;
     this.guildId = data.guildId;
+    this.client = client;
+  }
+
+  public async delete() {
+    return await this.client.rest.request('delete', `/channels/${this.channelId}/messages/${this.id}`, null, true);
   }
 }
