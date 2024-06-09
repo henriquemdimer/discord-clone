@@ -39,7 +39,7 @@ export default class ChannelService {
       type: body.type
     });
 
-    Gateway.broadcastEventTo(guildId, 'CHANNEL_CREATE', await this.find({ id: channel.id }));
+    Gateway.broadcastEventTo(guildId, 'CHANNEL_CREATE', await this.findOne({ id: channel.id }));
     return channel.id;
   }
 
@@ -49,7 +49,7 @@ export default class ChannelService {
     return await Channel.find({ guildId }).populate('guild');
   }
 
-  public async find(query: any, select?: string) {
+  public async findOne(query: any, select?: string) {
     return await Channel.findOne(query).select(select || '').populate('guild');
   }
 }
