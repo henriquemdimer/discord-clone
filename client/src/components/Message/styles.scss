@@ -4,17 +4,16 @@
     gap: 14px;
     padding: 4px 16px;
     transition: var(--fast-transition);
-    margin-top: 5px;
     width: 100%;
+    margin-top: 5px;
 
     .message__data {
         display: flex;
         flex-direction: column;
-        gap: 5px;
         color: var(--white);
         font-size: 14px;
         width: 100%;
-        max-width: 90%;
+        gap: 5px;
 
         .message__author {
             margin-top: 4px;
@@ -23,10 +22,16 @@
         }
 
         .message__content {
-            flex: 1 1 10%;
             opacity: 0.9;
-            max-width: 100%;
+            overflow: hidden;
             word-wrap: break-word;
+        }
+    }
+
+    &.message--no-author {
+        margin-top: 0px;
+        .message__data .message__content {
+            padding-left: 54px;
         }
     }
 
