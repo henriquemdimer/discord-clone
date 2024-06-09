@@ -23,7 +23,7 @@ export default class MessageService {
       author: authorMemberId
     });
 
-    Gateway.broadcastEventTo(guildId, 'MESSAGE_CREATE', await this.find({ id: msg.id }));
+    Gateway.broadcastEventTo(guildId, 'MESSAGE_CREATE', await this.findOne({ id: msg.id }));
     return msg.id;
   }
 
@@ -33,7 +33,17 @@ export default class MessageService {
     return await Message.find({ channelId }).populate('author').populate({ path: 'author', populate: { path: 'user' } }).populate({ path: 'author', populate: { path: 'guild' } });
   }
 
-  public async find(query: any, select?: string) {
+  public async deleteOne(query: any) {
+    const msg = await this.findOne(query);
+    if(!msg) throw new Error('Message not found');
+
+    await Message.deleteOne(query);
+    Gateway.broadcastEventTo(msg.guildId, 'MESSAGE_DELETE', msg);
+    
+    return msg.id;
+  }
+
+  public async findOne(query: any, select?: string) {
     return await Message.findOne(query).select(select || '').populate('author').populate({ path: 'author', populate: { path: 'guild' } }).populate({ path: 'author', populate: { path: 'user' } });
   }
 }

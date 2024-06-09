@@ -11,6 +11,7 @@ export default class ChannelRoute extends BaseRoute implements IBaseRoute {
   public init(router: Router) {
     router.post('/:id/messages', this.channelController.createMessage);
     router.get('/:id/messages', this.channelController.getMessages);
+    router.delete('/:channelId/messages/:messageId', this.channelController.deleteMessage);
     return router;
   }
 }

@@ -9,13 +9,15 @@ import Channel from '../models/Channel';
 import Guild from '../models/Guild';
 import GuildService from '../services/guild.service';
 import GuildMember from '../models/GuildMember';
+import ChannelService from '../services/channel.service';
 
 export default class ChannelController extends BaseController {
-  public constructor(private readonly messageService = new MessageService(), private readonly guildService = new GuildService()) {
+  public constructor(private readonly messageService = new MessageService(), private readonly guildService = new GuildService(), private readonly channelService = new ChannelService()) {
     super();
 
     this.createMessage = this.createMessage.bind(this);
     this.getMessages = this.getMessages.bind(this);
+    this.deleteMessage = this.deleteMessage.bind(this);
   }
 
   public async createMessage(req: Request, res: Response) {
@@ -62,6 +64,22 @@ export default class ChannelController extends BaseController {
       });
     } catch (err) {
       console.log('Failed to get messages: ', err);
+      return HttpResponses.InternalServerError(res);
+    }
+  }
+
+  public async deleteMessage(req: Request, res: Response) {
+    try {
+      const channelId = req.params.channelId;
+      const messageId = req.params.messageId;
+
+      if(!channelId || !messageId) return HttpResponses.BadRequest(res);
+      if(!(await this.channelService.findOne({ id: channelId })) || !(await this.messageService.findOne({ id: messageId}))) return HttpResponses.NotFound(res);
+
+      const id = await this.messageService.deleteOne({ id: messageId });
+      return res.status(200).send({ id });
+    } catch(err) {
+      console.log('Failed to delete message: ', err);
       return HttpResponses.InternalServerError(res);
     }
   }
