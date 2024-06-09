@@ -25,3 +25,15 @@
         border-radius: 8px;
     }
 }
+
+#modal__message__content {
+    margin-top: 10px;
+    border: 1px solid var(--tertiary);
+    border-radius: 4px;
+    
+    div {
+        max-width: 95%;
+        margin: 0;
+        pointer-events: none;
+    }
+}
