@@ -95,7 +95,7 @@ export default function AuthPage(props: IProps) {
                             </div>
 
                             {props.method === "register" ? "" : <span className="auth__blue-deco">Esqueceu sua senha?</span>}
-                            <Button loading={loading} type='submit' label={props.method === "register" ? "Criar conta" : "Entrar"} />
+                            <Button loading={loading} htmlType='submit' label={props.method === "register" ? "Criar conta" : "Entrar"} />
                         </form>
                         {props.method === "register" ? (
                             <span id="auth__change-method">Já tem uma conta? <Link to={'/login'} className="auth__blue-deco">Entre nela!</Link></span>
