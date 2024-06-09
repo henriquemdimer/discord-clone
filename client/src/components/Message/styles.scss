@@ -56,8 +56,16 @@
                     cursor: pointer;
                     font-size: 16px;
 
+                    i {
+                        transition: var(--fast-transition);
+                    }
+
                     &.message__action--red {
                         color: var(--notification);
+                    }
+
+                    &:active i {
+                        transform: translateY(2px);
                     }
 
                     &:hover {

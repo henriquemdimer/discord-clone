@@ -73,7 +73,7 @@ export default function CreateServerModal(props: IProps) {
                     </div>
                     <div className="create-server-modal__footer">
                         <button type='button' onClick={() => setLevel(0)} className="create-server-moval__goback">Go back</button>
-                        <Button loading={loading} type='submit' label='Join server' disabled={!invite.length} />
+                        <Button loading={loading} htmlType='submit' label='Join server' disabled={!invite.length} />
                     </div>
                 </form>
                 <form onSubmit={create} id="create-server-modal__create" className="create-server-modal__column">
@@ -91,7 +91,7 @@ export default function CreateServerModal(props: IProps) {
                     </div>
                     <div className="create-server-modal__footer">
                         <button type='button' onClick={() => setLevel(0)} className="create-server-moval__goback">Go back</button>
-                        <Button disabled={!name.length} type='submit' loading={loading} label="Create server" />
+                        <Button disabled={!name.length} htmlType='submit' loading={loading} label="Create server" />
                     </div>
                 </form>
             </div>

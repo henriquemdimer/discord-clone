@@ -40,6 +40,10 @@
     }
   }
 
+  &.button__danger {
+    background-color: var(--notification);
+  }
+
   &.button__outline {
     background-color: transparent;
 
