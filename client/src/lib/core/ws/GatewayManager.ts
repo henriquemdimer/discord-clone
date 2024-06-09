@@ -71,6 +71,30 @@ export default class GatewayManager extends EventEmitter {
           if (this.client.selectedChannel?.id == channelId) this.client.emit('messageCreate');
         }
         break;
+      
+      case 'MESSAGE_DELETE':
+        if(data) {
+          const msgId = data.id;
+          const channelId = data.channelId;
+          const guildId = data.guildId;
+
+          const guild = this.client.guilds.find((g) => g.id == guildId);
+          if(!guild || !guild.loaded) return;
+
+          const channel = guild.channels.find((c) => c.id == channelId);
+          if(!channel || !channel.loaded) return;
+
+          const msg = channel.messages.find((m) => m.id == msgId);
+          if(!msg) return;
+
+          const index = channel.messages.findIndex((m) => m.id == msgId);
+          if(index != -1) {
+            channel.messages.splice(index, 1);
+          }
+          
+          this.client.emit('messageDelete', msg);
+        }
+        break;
 
       case 'GUILD_CREATE':
         if (!data) return;
