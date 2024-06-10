@@ -5,6 +5,7 @@ import client from "../../lib";
 
 export default function Input() {
     const [placeholder, setPlaceholder] = useState(true);
+    const [text, setText] = useState('');
 
     async function sendMessage(content: string) {
         const channel = client.selectedChannel;
@@ -39,7 +40,8 @@ export default function Input() {
         const input = document.getElementById('input');
         const container = document.getElementById('input__container');
         const channel = document.getElementById('channel-data');
-        if (!input || !container || !channel) return
+        if (!input || !container || !channel) return;
+        setText(input.innerText);
 
         const bounding = input.getBoundingClientRect();
         container.style.bottom = `${bounding.height - 28}px`
@@ -49,8 +51,8 @@ export default function Input() {
     return (
         <>
             <div id="input__container">
-                <div onInput={adjustHeight} contentEditable id="input">
-                    {placeholder && <span id="input__placeholder">Text in #general</span>}
+                <div onInput={adjustHeight} contentEditable id='input' className={`${text.length ? 'input--active' : ''}`}>
+                    {placeholder && !text.length ? <span id="input__placeholder">Text in #general</span> : ''}
                 </div>
                 <i id="input__icon"><FiAtSign /></i>
             </div>
