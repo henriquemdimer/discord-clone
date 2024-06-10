@@ -24,7 +24,7 @@ export default function Modal(props: IProps) {
           {props.children}
         </div>
         <div className="modal--footer">
-          <Button onClick={() => props.onClose()} label='Cancelar' type='outline' />
+          <Button onClick={() => props.onClose()} label='Cancel' type='outline' />
           <Button style={props.successButtonStyle || 'default'} loading={props.loading} disabled={props.loading || props.disabled} onClick={async () => { props.setLoading?.(true); await props.onSuccess?.(); props.setLoading?.(false) }} label={props.successButtonLabel || 'OK'} />
         </div>
       </div>

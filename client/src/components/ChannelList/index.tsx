@@ -64,7 +64,7 @@ export default function ChannelList() {
 
     return (
         <>
-            <Modal disabled={type == 99} loading={loading} setLoading={setLoading} id="channel-list--modal" onSuccess={createChannel} active={createModal} onClose={closeModal}>
+            <Modal successButtonLabel='Create channel' disabled={type == 99} loading={loading} setLoading={setLoading} id="channel-list--modal" onSuccess={createChannel} active={createModal} onClose={closeModal}>
                 <h4 id="channel-list--modal-title">Create channel</h4>
                 <span className="channel-list--modal-subtitle">Channel type</span>
 
@@ -73,27 +73,27 @@ export default function ChannelList() {
                         type={0}
                         setType={setType}
                         selected={type == 0}
-                        title="Categoria"
-                        description="Agrupe e organize canais e permissões"
+                        title="Category"
+                        description="Group and organize channels and permissions"
                     />
                     <ChannelType
                         type={1}
                         setType={setType}
                         selected={type == 1}
-                        title="Texto"
-                        description="Envie mensagens, imagens, GIFs, emojis, opiniões e piadas"
+                        title="Text"
+                        description="Send messages, images, GIFs, opinions and jokes"
                     />
                     <ChannelType
                         type={2}
                         setType={setType}
                         selected={type == 2}
-                        title="Voz"
-                        description="Passe o tempo com a turma com voz, video e compartilhamento de tela"
+                        title="Voice"
+                        description="Spend time with the gang with voice, video, and screen sharing"
                         disabled
                     />
-                    <span className="channel-list--modal-subtitle">Nome do canal</span>
+                    <span className="channel-list--modal-subtitle">Channel name</span>
                     {/* @ts-ignore */}
-                    <Input onChange={(e) => setName(e.target.value)} placeholder="chat-geral" />
+                    <Input onChange={(e) => setName(e.target.value)} placeholder="general" />
                 </div>
             </Modal>
             <div id="channel-list">
