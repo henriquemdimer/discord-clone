@@ -35,6 +35,10 @@
             color: var(--white);
         }
 
+        &.input--active {
+            color: var(--white);
+        }
+
         #input__placeholder {
             pointer-events: none;
         }
