@@ -74,7 +74,10 @@ export default class ChannelController extends BaseController {
       const messageId = req.params.messageId;
 
       if(!channelId || !messageId) return HttpResponses.BadRequest(res);
-      if(!(await this.channelService.findOne({ id: channelId })) || !(await this.messageService.findOne({ id: messageId}))) return HttpResponses.NotFound(res);
+
+      const channel = await this.channelService.findOne({ id: channelId });
+      if(!channel || !(await this.messageService.findOne({ id: messageId}))) return HttpResponses.NotFound(res);
+      if(!(await this.guildService.userIsMemberFromGuild(res.locals.id, channel.guildId))) return HttpResponses.Unauthorized(res);
 
       const id = await this.messageService.deleteOne({ id: messageId });
       return res.status(200).send({ id });
