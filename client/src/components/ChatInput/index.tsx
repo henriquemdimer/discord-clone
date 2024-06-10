@@ -18,6 +18,10 @@ export default function Input() {
         const input = document.getElementById('input');
         if (!input) return;
 
+        client.on('clientKeyDown', (e) => {
+            input.focus();
+        })
+
         input.addEventListener("focus", () => {
             setPlaceholder(false);
         });

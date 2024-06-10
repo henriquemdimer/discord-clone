@@ -26,6 +26,9 @@ export default class Client extends EventEmitter {
     }
 
     public async init(token: string) {
+        window.addEventListener('keydown', (e) => this.emit('clientKeyDown', e));
+        window.addEventListener('keyup', (e) => this.emit('clientKeyUp', e));
+
         this.token = token;
         this.ws.init();
         this.ws.on('ready', async () => {
