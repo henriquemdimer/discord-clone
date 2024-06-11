@@ -18,7 +18,6 @@ export class Guild extends EventEmitter {
     this.client = client;
     this.name = data.name;
     this.id = data.id;
-    console.log(this.id);
     this.members = [];
     this.channels = [];
   }
