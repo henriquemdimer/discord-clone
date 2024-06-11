@@ -1,7 +1,8 @@
-import { Dispatch, HTMLAttributes, ReactNode, SetStateAction, useState } from "react";
+import { Dispatch, HTMLAttributes, ReactNode, SetStateAction, useEffect, useState } from "react";
 import Button, { BUTTON_STYLES } from "../Button";
 import "./styles.scss";
 import { FaTimes } from "react-icons/fa";
+import client from "../../lib";
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
   active: boolean;
@@ -16,6 +17,11 @@ interface IProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export default function Modal(props: IProps) {
+
+  useEffect(() => {
+    client.activeModal = props.active;
+  }, [props.active]);
+
   return (
     <>
       <div className={`${props.active ? 'modal__active' : ''} modal`}>

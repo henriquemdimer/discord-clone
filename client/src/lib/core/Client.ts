@@ -13,6 +13,7 @@ export default class Client extends EventEmitter {
     public selectedGuild?: Guild;
     public selectedChannel?: Channel;
     public ws: GatewayManager;
+    public activeModal: boolean;
 
     public constructor(url: string) {
         super();
@@ -23,6 +24,7 @@ export default class Client extends EventEmitter {
         if(!gurl) throw new Error('Missing gateway url');
         this.rest = new RequestManager(this, { secure, url });
         this.ws = new GatewayManager(this, { secure, url: gurl });
+        this.activeModal = false;
     }
 
     public async init(token: string) {
