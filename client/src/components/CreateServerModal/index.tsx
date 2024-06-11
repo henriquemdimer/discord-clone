@@ -23,8 +23,13 @@ export default function CreateServerModal(props: IProps) {
     async function join(e: FormEvent) {
         e.preventDefault();
         setLoading(true);
-        await client.joinGuild(invite);
-        setLoading(false);
+
+        try {
+            await client.joinGuild(invite);
+            props.setActive(false);
+        } finally {
+            setLoading(false);
+        }
     }
 
     async function create(e: FormEvent) {
