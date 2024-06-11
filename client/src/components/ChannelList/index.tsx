@@ -125,7 +125,7 @@ export function ChannelType(props: ChannelTypeIProps) {
                 <h5>{props.title}</h5>
                 <span>{props.description}</span>
             </div>
-            <input checked={props.selected} type="radio" />
+            <input readOnly checked={props.selected} type="radio" />
         </div>
     )
 }
