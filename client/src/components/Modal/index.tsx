@@ -1,4 +1,4 @@
-import { Dispatch, HTMLAttributes, ReactNode, SetStateAction, useEffect, useState } from "react";
+import { HTMLAttributes, ReactNode, useEffect } from "react";
 import Button, { BUTTON_STYLES } from "../Button";
 import "./styles.scss";
 import { FaTimes } from "react-icons/fa";
