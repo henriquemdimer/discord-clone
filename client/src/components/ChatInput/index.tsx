@@ -20,7 +20,7 @@ export default function Input() {
 
         const ignore_keys = ['Shift']
         client.on('clientKeyDown', (e) => {
-            if(!ignore_keys.includes(e.key)) input.focus();
+            if(!ignore_keys.includes(e.key) && !client.activeModal) input.focus();
         })
 
         input.addEventListener("focus", () => {

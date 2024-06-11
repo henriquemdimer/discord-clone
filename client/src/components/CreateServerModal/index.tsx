@@ -1,6 +1,6 @@
 import { FaAngleRight } from 'react-icons/fa';
 import './styles.scss';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import client from '../../lib';
 import { FaCamera } from "react-icons/fa";
 import Button from '../Button';
@@ -15,6 +15,10 @@ export default function CreateServerModal(props: IProps) {
     const [name, setName] = useState('');
     const [invite, setInvite] = useState('');
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        client.activeModal = props.active;
+    }, [props.active]);
 
     async function join(e: FormEvent) {
         e.preventDefault();
