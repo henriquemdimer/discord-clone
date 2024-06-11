@@ -10,11 +10,20 @@ export default function ChannelData() {
     const [deleteModal, setDeleteModal] = useState(false)
     const [messageToDelete, setMessageToDelete] = useState<LibMessage>();
     const [loading, setLoading] = useState(false);
+    const [shiftDown, setShiftDown] = useState(false);
 
     useEffect(() => {
         client.on('selectChannel', parseMessages);
         client.on('messageCreate', parseMessages);
         client.on('messageDelete', parseMessages);
+
+        client.on('clientKeyDown', (e) => {
+            if(e.key == 'Shift') setShiftDown(true);
+        })
+
+        client.on('clientKeyUp', (e) => {
+            if(e.key == 'Shift') setShiftDown(false);
+        })
 
         function parseMessages() {
             const channel = client.selectedChannel;
@@ -39,21 +48,25 @@ export default function ChannelData() {
             }
         }
     }, []);
-    
-    function openDeleteMessageModal(msg: LibMessage) {
-        setMessageToDelete(msg);
-        setDeleteModal(true);
-    }
 
-    async function deleteMessage() {
-        if(messageToDelete) {
-            try {
-                await messageToDelete.delete()
-            } catch(_) {
-                console.log(_);
-            } finally {
-                setDeleteModal(false);
-            }
+    async function deleteMessage(msg?: LibMessage) {
+        try {
+            if(msg) await msg.delete();
+            else if(messageToDelete) await messageToDelete.delete()
+        } catch(_) {
+            console.log(_);
+        } finally {
+            setDeleteModal(false);
+        }
+    }
+    
+    async function openDeleteMessageModal(msg: LibMessage) {
+        setMessageToDelete(msg);
+
+        if(shiftDown) {
+            await deleteMessage(msg);
+        } else {
+            setDeleteModal(true);
         }
     }
 
