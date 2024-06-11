@@ -42,6 +42,7 @@ export default function ChannelList() {
     }
 
     async function createChannel() {
+        setLoading(true);
         const guild = client.selectedGuild;
 
         if (guild) {
@@ -51,6 +52,8 @@ export default function ChannelList() {
             } catch (err) {
                 setLoading(false);
                 return;
+            } finally {
+                setLoading(false);
             }
         }
 
@@ -93,7 +96,7 @@ export default function ChannelList() {
                     />
                     <span className="channel-list--modal-subtitle">Channel name</span>
                     {/* @ts-ignore */}
-                    <Input onChange={(e) => setName(e.target.value)} placeholder="general" />
+                    <Input onKeyDown={async (e) => e.key == 'Enter' ? await createChannel() : {}} onChange={(e) => setName(e.target.value)} placeholder="general" />
                 </div>
             </Modal>
             <div id="channel-list">
