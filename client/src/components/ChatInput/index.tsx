@@ -18,8 +18,9 @@ export default function Input() {
         const input = document.getElementById('input');
         if (!input) return;
 
+        const ignore_keys = ['Shift']
         client.on('clientKeyDown', (e) => {
-            input.focus();
+            if(!ignore_keys.includes(e.key)) input.focus();
         })
 
         input.addEventListener("focus", () => {
@@ -55,7 +56,7 @@ export default function Input() {
     return (
         <>
             <div id="input__container">
-                <div onInput={adjustHeight} contentEditable id='input' className={`${text.length ? 'input--active' : ''}`}>
+                <div suppressContentEditableWarning onInput={adjustHeight} contentEditable id='input' className={`${text.length ? 'input--active' : ''}`}>
                     {placeholder && !text.length ? <span id="input__placeholder">Text in #general</span> : ''}
                 </div>
                 <i id="input__icon"><FiAtSign /></i>
