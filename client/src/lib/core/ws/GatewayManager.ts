@@ -62,13 +62,38 @@ export default class GatewayManager extends EventEmitter {
           const channelId = data.channelId;
 
           const guild = this.client.guilds.find((g) => g.id == guildId);
-          if (!guild || !guild.loaded) return;
+          if (!guild) return;
 
           const channel = guild.channels.find((c) => c.id == channelId);
-          if (!channel || !channel.loaded) return;
+          const reg = new RegExp(`@${this.client.user?.tag}|@everyone`, 'gi');
+
+          if (!channel) {
+            const umention = guild.unloadedNotifications.find((c) => c.channelId = data.channelId);
+            
+            if(reg.test(data.content)) {
+              if(!umention) guild.unloadedNotifications.push({ channelId: data.channelId, mentions: 1, newMessages: true });
+              else umention.mentions += 1;
+            } else {
+              if(!umention) guild.unloadedNotifications.push({ channelId: data.channelId, mentions: 0, newMessages: true });
+              else umention.newMessages = true;
+            }
+
+
+            this.client.emit('mentionUpdate')
+            return
+          };
+
+          if(channel?.id != this.client.selectedChannel?.id) {
+            channel.hasUnreadMessages = true;
+
+            if(reg.test(data.content)) channel.newMentions += 1;
+            this.client.emit('mentionUpdate');
+          }
+
+          if(!guild.loaded || !channel.loaded) return
           channel.pushMessage(data);
 
-          if (this.client.selectedChannel?.id == channelId) this.client.emit('messageCreate');
+          this.client.emit('messageCreate');
         }
         break;
       

@@ -101,7 +101,7 @@ export default function ChannelList() {
             </Modal>
             <div id="channel-list">
                 {channels.filter((c) => !c.parentId && c.type != 0).map((channel) => (
-                    <Channel id={channel.id} selected={selected?.id == channel.id} name={channel.name} key={channel.id} />
+                    <Channel self={channel} selected={selected?.id == channel.id} key={channel.id} />
                 ))}
                 {channels.map((channel) => (
                     channel.type == 0 && <Category selectedChannel={selected} name={channel.name} id={channel.id} createModal={openModal} key={channel.id} channels={channels.filter((c) => c.parentId == channel.id)} />

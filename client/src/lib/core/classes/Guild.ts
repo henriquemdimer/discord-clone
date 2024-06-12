@@ -3,6 +3,12 @@ import Client from "../Client";
 import { GuildMember } from "./GuildMember";
 import { EventEmitter } from "events";
 
+export interface IUnloadedNotification {
+  channelId: string;
+  mentions: number;
+  newMessages?: boolean;
+}
+
 export class Guild extends EventEmitter {
   private client: Client;
   public name: string;
@@ -10,6 +16,7 @@ export class Guild extends EventEmitter {
   public members: GuildMember[];
   public channels: Channel[];
   public loaded: boolean = false;
+  public unloadedNotifications: IUnloadedNotification[];
 
   public constructor(data: any, client: Client) {
     super();
@@ -18,14 +25,26 @@ export class Guild extends EventEmitter {
     this.client = client;
     this.name = data.name;
     this.id = data.id;
+    console.log(this.id);
     this.members = [];
     this.channels = [];
+    this.unloadedNotifications = [];
   }
 
   public async load() {
     try {
       await this.getChannels();
       await this.getMembers();
+
+      for(const unotification of this.unloadedNotifications) {
+        const channel = this.channels.find((c) => c.id == unotification.channelId);
+        if(channel) {
+          channel.newMentions = unotification.mentions;
+          if(unotification.newMessages || unotification.mentions > 0) channel.hasUnreadMessages = true;
+        }
+      }
+
+      this.unloadedNotifications = [];
       this.loaded = true;
     } catch (_) {
       console.log(_);
