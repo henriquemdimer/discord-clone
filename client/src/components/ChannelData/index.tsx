@@ -83,7 +83,7 @@ export default function ChannelData() {
             <div id="channel-data">
                 {messageChunks.map((chunk) => (
                     chunk.map((msg: LibMessage, i: number) => (
-                        <Message onDelete={openDeleteMessageModal} author={i == chunk.length - 1} key={msg.id} self={msg} />
+                        <Message mention={new RegExp(`@${client.user?.tag}|@everyone`, 'gi').test(msg.content)} onDelete={openDeleteMessageModal} author={i == chunk.length - 1} key={msg.id} self={msg} />
                     ))
                 ))}
             </div>

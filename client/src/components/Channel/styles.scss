@@ -8,19 +8,7 @@
     cursor: pointer;
     transition: var(--fast-transition);
     margin: 0 8px;
-
-    &:hover, &.channel--selected {
-        background-color: var(--quinary);
-
-        .channel__infos .channel__name {
-            opacity: 100%;
-        }
-
-        .channel__actions {
-            opacity: 100%;
-            pointer-events: all;
-        }
-    }
+    position: relative;
 
     .channel__infos {
         display: flex;
@@ -50,6 +38,7 @@
         opacity: 0%;
         pointer-events: none;
         transition: var(--fast-transition);
+        display: none;
 
         i {
             display: flex;
@@ -61,6 +50,64 @@
             &:hover {
                 opacity: 100%;
             }
+        }
+    }
+
+    &::before {
+        content: '';
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background-color: var(--white);
+        position: absolute;
+        top: 50%;
+        left: -13px;
+        transform: translate(-10px, -50%);
+    }
+
+    &.channel--notification {
+        .channel__infos .channel__name {
+            opacity: 1;
+        }
+
+        &::before {
+            content: '';
+            transform: translate(0, -50%);
+        }
+    }
+    
+    .channel__mentions {
+        width: 16px;
+        font-size: 12px;
+        font-weight: bolder;
+        height: 16px;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--notification);
+        color: var(--white);
+        border-radius: 50%;
+
+        &.channel__mentions--active {
+            display: flex
+        }
+    }
+
+    &:hover, &.channel--selected {
+        background-color: var(--quinary);
+
+        .channel__infos .channel__name {
+            opacity: 100%;
+        }
+
+        .channel__mentions {
+            display: none;
+        }
+
+        .channel__actions {
+            display: flex;
+            opacity: 100%;
+            pointer-events: all;
         }
     }
 }

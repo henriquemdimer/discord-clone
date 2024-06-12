@@ -73,6 +73,9 @@ export default class Client extends EventEmitter {
             if (channel.type == 0) return;
             if (!channel.loaded) await channel.load();
             this.selectedChannel = channel;
+            channel.hasUnreadMessages = false;
+            channel.newMentions = 0;
+            this.emit('mentionUpdate');
             this.emit('selectChannel');
         }
     }

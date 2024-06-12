@@ -1,8 +1,9 @@
+import EventEmitter from "events";
 import Client from "../Client";
 import { Guild } from "./Guild";
 import Message from "./Message";
 
-export class Channel {
+export class Channel extends EventEmitter {
   private client: Client;
   public name: string;
   public id: string;
@@ -12,8 +13,11 @@ export class Channel {
   public parentId?: string;
   public messages: Message[] = [];
   public loaded: boolean = false;
+  public hasUnreadMessages: boolean;
+  public newMentions: number;
 
   public constructor(data: any, client: Client) {
+    super();
     if (!data || !data.id || !data.name || !client) throw new Error('Invalid or missing data');
 
     this.client = client;
@@ -23,6 +27,8 @@ export class Channel {
     this.guild = new Guild(data.guild, client);
     this.type = data.type;
     this.parentId = data.parentId;
+    this.hasUnreadMessages = false;
+    this.newMentions = 0;
   }
 
   public async load() {
@@ -50,7 +56,7 @@ export class Channel {
   public pushMessage(data: any) {
     try {
       this.messages.push(new Message(data, this.client));
-
+      this.emit('update');
     } catch (err) {
       console.log(err);
     }

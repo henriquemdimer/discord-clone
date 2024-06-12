@@ -29,7 +29,9 @@ html, body {
 
   --notification: #f84a4b;
   --discord: #6e86d6;
-  --mention-detail: #f9a839;
+  --mention-detail-transparent: rgba(249, 168, 57, 0.15);
+  --mention-detail-hover: rgba(249, 168, 57, 0.115);
+  --mention-detail-full: #f9a839;
   --mention-message: #413f3f;
 
   --link: #5d80d6;

@@ -30,7 +30,7 @@ export default function Category(props: IProps) {
                 {!closed && (
                     <div className="category__channels">
                         {props.channels.map((channel, index) => (
-                            <Channel id={channel.id} selected={props.selectedChannel?.id == channel.id} name={channel.name} key={index} />
+                            <Channel self={channel} selected={props.selectedChannel?.id == channel.id} key={index} />
                         ))}
                     </div>
                 )}

@@ -5,8 +5,12 @@
     padding: 4px 16px;
     transition: var(--fast-transition);
     width: 100%;
-    margin-top: 5px;
     position: relative;
+
+    &.message--mention {
+        background-color: var(--mention-detail-transparent);
+        border-left: 2px solid var(--mention-detail-full);
+    }
 
     .message__actions {
         opacity: 0;
@@ -74,10 +78,16 @@
     }
 
     &:hover {
-        background-color: var(--secondary);
+        &:not(.message--mention) {
+            background-color: var(--secondary);
+        }
+
+        &.message--mention {
+            background-color: var(--mention-detail-hover);
+        }
 
         .message__actions {
-            opacity: 1;
+            opacity: 1 !important;
             pointer-events: all;
         }
     }
