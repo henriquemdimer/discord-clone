@@ -2,7 +2,7 @@
 Neste projeto irei recriar a aplicação Discord tanto na parte Backend quanto Frontend, o objetivo principal deste projeto é testar minhas habilidades e ver quanto tempo levaria para desenvolver uma aplicação deste nível/nicho, pretendo fazer seu funcionamento/visual o mais próximo possível do Discord original
 
 ## Índices
-- [Built With](#builtWith)
+- [Built With](#built-with)
 - [Instalação](#instalação)
 - [Roadmap](#roadmap)
 
