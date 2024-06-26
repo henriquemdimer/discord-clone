@@ -1,17 +1,17 @@
-### Sobre o projeto
+## Sobre o projeto
 Neste projeto irei recriar a aplicação Discord tanto na parte Backend quanto Frontend, o objetivo principal deste projeto é testar minhas habilidades e ver quanto tempo levaria para desenvolver uma aplicação deste nível/nicho, pretendo fazer seu funcionamento/visual o mais próximo possível do Discord original
 
-### Built with
+## Built with
 - ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 - ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 - ![SASS](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
 - ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 - ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 
-### Rodando na sua máquina
+## Rodando na sua máquina
 Certifique-se de ter Git, Docker e Docker Compose instalados e uma versão recente do Nodejs e NPM
 
-### Instalação
+## Instalação
 1. Clone o repositório
 ```sh
 git clone https://github.com/devdimer/discord-clone.git
