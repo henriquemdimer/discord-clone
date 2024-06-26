@@ -37,9 +37,9 @@ After that, the app should be up and ready to be accessed, just open the browser
     - [x] Registration/login UI
     - [x] Loading screen 
     - [ ] Profiles
-- [ ] Friends UI
-- [ ] Account/app settings screen
-- [ ] Guild (server) settings
+    - [ ] Friends UI
+    - [ ] Account/app settings screen
+    - [ ] Guild (server) settings
 - [ ] Server
     - [x] Create/Edit/Delete account
     - [x] Create/Edit/Delete guild (server)
