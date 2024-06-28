@@ -1,6 +1,6 @@
 🇧🇷🇵🇹[Português](README.pt.md)
 
-![Website](https://img.shields.io/website?url=https%3A%2F%2F6ecad9b7-37e5-4458-99b8-6c526fc5c467-00-x4un4vi5k0yt.spock.replit.dev%3A8080%2F)
+![Website](https://img.shields.io/website?url=https%3A%2F%2F6ecad9b7-37e5-4458-99b8-6c526fc5c467-00-x4un4vi5k0yt.spock.replit.dev%3A8080%2F&style=for-the-badge)
 
 ## About the project
 In this project, I will recreate the Discord application both in the Backend and Frontend, the main goal of this project is to test my skills and see how long it would take to develop an application of this level/niche, I intend to make its functionality/visual as close as possible to the original Discord.
