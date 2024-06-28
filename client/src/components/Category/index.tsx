@@ -1,9 +1,8 @@
 import { FaAngleDown, FaPlus } from "react-icons/fa";
 import "./styles.scss";
 import Channel from "../Channel";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Channel as LibChannel } from "../../lib/core/classes/Channel";
-import client from "../../lib";
 
 export interface IProps {
     name: string;

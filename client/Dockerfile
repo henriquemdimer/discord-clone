@@ -1,13 +1,13 @@
 FROM node:22 as builder
 
-ARG REACT_APP_SERVER_URL
-ARG REACT_APP_GATEWAY_URL
-ARG REACT_APP_HTTPS
+ARG VITE_SERVER_URL
+ARG VITE_GATEWAY_URL
+ARG VITE_HTTPS
 
 RUN mkdir /site
 COPY package*.json /site
 WORKDIR /site
-RUN npm install
+RUN npm install --force
 COPY . .
 RUN npm run build
 

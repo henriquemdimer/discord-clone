@@ -1,4 +1,4 @@
 import Client from "./core/Client";
 
-const client = new Client(process.env.REACT_APP_SERVER_URL as string);
+const client = new Client(import.meta.env.VITE_SERVER_URL as string);
 export default client;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./styles.scss";
 import { FiAtSign } from "react-icons/fi";
 import client from "../../lib";
