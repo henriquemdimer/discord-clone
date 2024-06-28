@@ -23,7 +23,7 @@ export default function UsersList() {
     return (
         <>
             <div id="users-list">
-                {roles.map((r, i) => (
+                {roles.map((_, i) => (
                     <Role key={i} members={members} />
                 ))}
             </div>

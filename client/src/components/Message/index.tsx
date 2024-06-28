@@ -2,8 +2,6 @@ import { FaTrash } from "react-icons/fa";
 import LibMessage from "../../lib/core/classes/Message";
 import RoundIcon from "../RoundIcon";
 import "./styles.scss";
-import Modal from "../Modal";
-import { useState } from "react";
 
 interface IProps {
     self: LibMessage

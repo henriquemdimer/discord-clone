@@ -18,8 +18,8 @@ export default class Client extends EventEmitter {
     public constructor(url: string) {
         super();
 
-        const secure = process.env.REACT_APP_HTTPS === 'true' ? true : false;
-        const gurl = process.env.REACT_APP_GATEWAY_URL;
+        const secure = import.meta.env.VITE_HTTPS === 'true' ? true : false;
+        const gurl = import.meta.env.VITE_GATEWAY_URL;
 
         if(!gurl) throw new Error('Missing gateway url');
         this.rest = new RequestManager(this, { secure, url });

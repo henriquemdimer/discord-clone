@@ -1,5 +1,5 @@
-import { FormEvent, useEffect, useState } from "react";
-import { FaHashtag, FaHeadphones } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { FaHashtag } from "react-icons/fa";
 import client from "../../lib";
 import { Channel as LibChannel } from "../../lib/core/classes/Channel";
 import Category from "../Category";
@@ -47,7 +47,7 @@ export default function ChannelList() {
 
         if (guild) {
             try {
-                const id = await guild.createChannel(name, type, parent);
+                await guild.createChannel(name, type, parent);
                 // client.selectChannel(id);
             } catch (err) {
                 setLoading(false);

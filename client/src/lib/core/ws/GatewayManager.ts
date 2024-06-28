@@ -1,5 +1,5 @@
 import EventEmitter from "events";
-import WebSocket, { MessageEvent, RawData } from "isomorphic-ws";
+import WebSocket, { MessageEvent } from "isomorphic-ws";
 import { Channel } from "../classes/Channel";
 import { Guild } from "../classes/Guild";
 import { GuildMember } from "../classes/GuildMember";

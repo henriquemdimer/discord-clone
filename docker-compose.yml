@@ -11,9 +11,9 @@ services:
     build:
       context: ./client
       args:
-        REACT_APP_SERVER_URL: "localhost:80/api"
-        REACT_APP_GATEWAY_URL: "localhost:80/gateway"
-        REACT_APP_HTTPS: true
+        VITE_SERVER_URL: "localhost:80/api"
+        VITE_GATEWAY_URL: "localhost:80/gateway"
+        VITE_HTTPS: false
 
   mongo:
     image: mongo

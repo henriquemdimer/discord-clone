@@ -8,7 +8,6 @@ export class GuildMember {
   public guildId: string;
   public guild: Guild;
   public status: 'online' | 'offline' | 'dnd' | 'idle';
-  private client: Client;
 
   public constructor(data: any, client: Client) {
     if (!data || !data.id || !client) throw new Error('Invalid or missing data');
@@ -18,6 +17,5 @@ export class GuildMember {
     this.guildId = data.guildId;
     this.status = data.status || 'offline';
     this.guild = new Guild(data.guild, client);
-    this.client = client;
   }
 }
