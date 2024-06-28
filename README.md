@@ -32,7 +32,7 @@ git clone https://github.com/devdimer/discord-clone.git
 docker-compose up
 ```
 
-After that, the app should be up and ready to be accessed, just open the browser and type the url http://localhost:3000
+After that, the app should be up and ready to be accessed, just open the browser and type the url http://localhost:80
 
 ## Roadmap
 
